@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_LBRC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KLL, FN_MO13,     KLL,        KRL, FN_MO23,     KRR
+                                              KLL, FN_MO13,     KLR,        KRL, FN_MO23,     KRR
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -50,11 +50,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB, XXXXXXX, KC_BRIU, KC_VOLU,  KC_ESC, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, XXXXXXX, XXXXXXX,
+       KC_TAB, XXXXXXX, KC_BRIU, KC_VOLU,  KC_ESC, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MPRV, KC_MNXT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LGUI, XXXXXXX, KC_BRID, KC_VOLD, XXXXXXX, XXXXXXX,                      KC_MPRV, KC_MPLY, XXXXXXX, KC_MNXT, XXXXXXX, XXXXXXX,
+      KC_LGUI, XXXXXXX, KC_BRID, KC_VOLD, XXXXXXX, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, KC_MPLY,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KLL, _______,     KLL,        KRL, _______,     KRR
+                                              KLL, _______,     KLR,        KRL, _______,     KRR
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KLL, _______,     KLL,        KRL, _______,     KRR
+                                              KLL, _______,     KLR,        KRL, _______,     KRR
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_WH_D, KC_WH_U, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KLL, _______,     KLL,        KRL, _______,     KRR
+                                              KLL, _______,     KLR,        KRL, _______,     KRR
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KLL, _______,     KLL,        KRL, _______,     KRR
+                                              KLL, _______,     KLR,        KRL, _______,     KRR
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KLL, _______,     KLL,        KRL, _______,     KRR
+                                              KLL, _______,     KLR,        KRL, _______,     KRR
                                       //`--------------------------'  `--------------------------'
   ),
 };
@@ -117,7 +117,7 @@ void keyboard_post_init_user(void) {
 
     dynamic_keymap_set_tap_dance(0, &td); // the first value corresponds to the TD(i) slot
 
-    vial_combo_entry_t combo_capslock = { { KC_J, KC_K, COMBO_END }, KC_CAPSLOCK };
+    vial_combo_entry_t combo_capslock = { { KC_Y, KC_U, COMBO_END }, KC_CAPSLOCK };
     vial_combo_entry_t combo_esc = { { KC_F, KC_D, COMBO_END }, KC_ESC };
 
     dynamic_keymap_set_combo(0, &combo_capslock);
