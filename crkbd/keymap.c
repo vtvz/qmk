@@ -117,9 +117,11 @@ void keyboard_post_init_user(void) {
 
     dynamic_keymap_set_tap_dance(0, &td); // the first value corresponds to the TD(i) slot
 
-    vial_combo_entry_t combo_capslock = { { KC_Y, KC_U, COMBO_END }, KC_CAPSLOCK };
-    vial_combo_entry_t combo_esc = { { KC_F, KC_D, COMBO_END }, KC_ESC };
+    vial_combo_entry_t combo_capslock = { { KC_J, KC_L, COMBO_END }, KC_CAPSLOCK };
+    vial_combo_entry_t combo_shift_capslock = { { KC_F, KC_S, COMBO_END }, LSFT(KC_CAPSLOCK) };
+    // vial_combo_entry_t combo_esc = { { KC_F, KC_D, COMBO_END }, KC_ESC };
 
     dynamic_keymap_set_combo(0, &combo_capslock);
-    dynamic_keymap_set_combo(1, &combo_esc);
+    dynamic_keymap_set_combo(1, &combo_shift_capslock);
+    // dynamic_keymap_set_combo(1, &combo_esc);
 }
