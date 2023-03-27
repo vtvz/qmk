@@ -8,3 +8,6 @@ EXTRAKEY_ENABLE     = yes
 LTO_ENABLE          = yes
 QMK_SETTINGS        = no
 COMBO_ENABLE        = yes
+DYNAMIC_MACRO_ENABLE = no
+KEY_OVERRIDE_ENABLE  = no
+LEADER_ENABLE        = yes

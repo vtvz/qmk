@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_TAB, XXXXXXX, KC_BRIU, KC_VOLU,  KC_ESC, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MPRV, KC_MNXT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LGUI, XXXXXXX, KC_BRID, KC_VOLD, XXXXXXX, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, KC_MPLY,
+      KC_LGUI, XXXXXXX, KC_BRID, KC_VOLD, KC_LEAD, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, KC_MPLY,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                               KLL, _______,     KLR,        KRL, _______,     KRR
                                       //`--------------------------'  `--------------------------'
@@ -62,11 +62,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_ESC, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
+       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS,  KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
+      KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KLL, _______,     KLR,        KRL, _______,     KRR
+                                              KLL, _______,     KLR, LSFT(KC_ENT), _______,  KC_DEL
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -110,18 +110,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
     vial_tap_dance_entry_t td = { TG(1),
-                                  KC_CAPSLOCK,
+                                  KC_CAPS_LOCK,
                                   KC_NO,
                                   KC_NO,
                                   TAPPING_TERM };
 
     dynamic_keymap_set_tap_dance(0, &td); // the first value corresponds to the TD(i) slot
 
-    vial_combo_entry_t combo_capslock = { { KC_J, KC_L, COMBO_END }, KC_CAPSLOCK };
-    vial_combo_entry_t combo_shift_capslock = { { KC_F, KC_S, COMBO_END }, LSFT(KC_CAPSLOCK) };
+    vial_combo_entry_t combo_capslock = { { KC_J, KC_L, COMBO_END }, KC_CAPS_LOCK };
+    vial_combo_entry_t combo_shift_capslock = { { KC_F, KC_S, COMBO_END }, LSFT(KC_CAPS_LOCK) };
     // vial_combo_entry_t combo_esc = { { KC_F, KC_D, COMBO_END }, KC_ESC };
 
     dynamic_keymap_set_combo(0, &combo_capslock);
     dynamic_keymap_set_combo(1, &combo_shift_capslock);
-    // dynamic_keymap_set_combo(1, &combo_esc);
+    // dynamic_keymap_set_combo(1, &com o_esc);
+}
+
+LEADER_EXTERNS();
+
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    SEQ_FOUR_KEYS(KC_M, KC_A, KC_I, KC_L) {
+      // Anything you can do in a macro.
+      SEND_STRING("vtvz.ru@gmail.com");
+    }
+  }
 }

@@ -25,6 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 #define TAPPING_TERM 180
 #define IGNORE_MOD_TAP_INTERRUPT
+#define DYNAMIC_KEYMAP_MACRO_COUNT 0
+
+#define LEADER_TIMEOUT 350
+#define LEADER_NO_TIMEOUT
+#define LEADER_PER_KEY_TIMING
 
 //#define USE_MATRIX_I2C
 #ifdef KEYBOARD_crkbd_rev1_legacy
