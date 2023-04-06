@@ -16,7 +16,29 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+Use this for https://precondition.github.io/qmk-heatmap
+As it's simpler to tap buttons in sequence
+
+┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐            ┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐
+│0A││0B││0C││0D││0E││0F│            │4F││4E││4D││4C││4B││4A│
+└──┘└──┘└──┘└──┘└──┘└──┘            └──┘└──┘└──┘└──┘└──┘└──┘
+┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐            ┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐
+│1A││1B││1C││1D││1E││1F│            │5F││5E││5D││5C││5B││5A│
+└──┘└──┘└──┘└──┘└──┘└──┘            └──┘└──┘└──┘└──┘└──┘└──┘
+┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐            ┌──┐┌──┐┌──┐┌──┐┌──┐┌──┐
+│2A││2B││2C││2D││2E││2F│            │6F││6E││6D││6C││6B││6A│
+└──┘└──┘└──┘└──┘└──┘└──┘            └──┘└──┘└──┘└──┘└──┘└──┘
+                ┌──┐┌──┐┌──┐    ┌──┐┌──┐┌──┐
+                │3D││3E││3F│    │7F││7E││7D│
+                └──┘└──┘└──┘    └──┘└──┘└──┘
+*/
+
 #include QMK_KEYBOARD_H
+
+#ifdef CONSOLE_ENABLE
+#include "print.h"
+#endif
 
 enum layer_names {
     _BASE,
@@ -36,7 +58,7 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+      KC_HYPR,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -48,11 +70,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUM] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB, XXXXXXX, KC_BRIU, KC_VOLU,  KC_ESC, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MPRV, KC_MNXT,
+      _______, XXXXXXX, KC_BRIU, KC_VOLU,  KC_ESC, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MPRV, KC_MNXT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LGUI, XXXXXXX, KC_BRID, KC_VOLD, KC_LEAD, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, KC_MPLY,
+      _______, XXXXXXX, KC_BRID, KC_VOLD, KC_LEAD, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, KC_MPLY,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                               KLL, _______,     KLR,        KRL, _______,     KRR
                                       //`--------------------------'  `--------------------------'
@@ -60,11 +82,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYMB] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_ESC, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
+      _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS,  KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS,  KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                               KLL, _______,     KLR, LSFT(KC_ENT), _______,  KC_DEL
                                       //`--------------------------'  `--------------------------'
@@ -74,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
         RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_PSCREEN,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,  KC_F11, KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, XXXXXXX,             KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,  KC_F12, XXXXXXX,
+       QK_RBT,  KC_F11, KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, XXXXXXX,             KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,  KC_F12, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_WH_D, KC_WH_U, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -109,6 +131,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void keyboard_post_init_user(void) {
+    debug_enable=true;
+
     vial_tap_dance_entry_t td = { TG(1),
                                   KC_CAPS_LOCK,
                                   KC_NO,
@@ -126,6 +150,25 @@ void keyboard_post_init_user(void) {
     // dynamic_keymap_set_combo(1, &com o_esc);
 }
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    #ifdef CONSOLE_ENABLE
+    #ifdef KEYLOG_ENABLE
+        uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n",
+             keycode,
+             record->event.key.row,
+             record->event.key.col,
+             get_highest_layer(layer_state),
+             record->event.pressed,
+             get_mods(),
+             get_oneshot_mods(),
+             record->tap.count
+             );
+    #endif
+    #endif
+
+    return true;
+}
+
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
@@ -136,6 +179,14 @@ void matrix_scan_user(void) {
     SEQ_FOUR_KEYS(KC_M, KC_A, KC_I, KC_L) {
       // Anything you can do in a macro.
       SEND_STRING("vtvz.ru@gmail.com");
+    }
+
+    SEQ_THREE_KEYS(KC_R, KC_B, KC_T) {
+      soft_reset_keyboard();
+    }
+
+    SEQ_FIVE_KEYS(KC_S, KC_L, KC_A, KC_C, KC_K) {
+      tap_code16(HYPR(KC_S));
     }
   }
 }
