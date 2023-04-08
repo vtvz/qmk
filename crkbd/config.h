@@ -18,10 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define VIAL_KEYBOARD_UID {0x3B, 0x6B, 0xA0, 0x29, 0x80, 0x56, 0xED, 0xD1}
-#define VIAL_UNLOCK_COMBO_ROWS {0, 0}
-#define VIAL_UNLOCK_COMBO_COLS {0, 1}
-
 #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 #define TAPPING_TERM 180
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -31,19 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LEADER_NO_TIMEOUT
 #define LEADER_PER_KEY_TIMING
 
-//#define USE_MATRIX_I2C
-#ifdef KEYBOARD_crkbd_rev1_legacy
-#    undef USE_I2C
-#    define USE_SERIAL
-#endif
-
 /* Select hand configuration */
 
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define USE_SERIAL_PD2
+#define COMBO_COUNT 2
 
 #ifdef MOUSEKEY_ENABLE
 #    define MOUSEKEY_DELAY 	10
@@ -57,4 +47,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define MOUSEKEY_WHEEL_TIME_TO_MAX 	40
 #endif
 
-#define KEYLOG_ENABLE
+// #define KEYLOG_ENABLE

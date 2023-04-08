@@ -1,15 +1,14 @@
-MOUSEKEY_ENABLE     = yes     # Mouse keys
-RGBLIGHT_ENABLE     = no      # Enable WS2812 RGB underlight.
-VIA_ENABLE          = yes     # Enable VIA
-VIAL_ENABLE         = yes     # Enable VIAL
-OLED_ENABLE         = no
-OLED_DRIVER         = SSD1306
-EXTRAKEY_ENABLE     = yes
-LTO_ENABLE          = yes
-QMK_SETTINGS        = no
-COMBO_ENABLE        = yes
-DYNAMIC_MACRO_ENABLE = no
-KEY_OVERRIDE_ENABLE  = no
-LEADER_ENABLE        = yes
-CONSOLE_ENABLE = yes
+LTO_ENABLE       = yes
+MOUSEKEY_ENABLE  = yes # Mouse keys
+OLED_ENABLE      = no # I dont have oled yet
+RGBLIGHT_ENABLE  = no # Enable WS2812 RGB underlight.
+VIA_ENABLE       = no # Enable VIA
+
 CAPS_WORD_ENABLE = yes
+COMBO_ENABLE     = yes
+LEADER_ENABLE    = yes
+CONSOLE_ENABLE   = yes
+TRI_LAYER_ENABLE = yes
+
+
+DYNAMIC_MACRO_ENABLE = no

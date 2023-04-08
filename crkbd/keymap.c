@@ -1,22 +1,4 @@
 /*
-Copyright 2019 @foostan
-Copyright 2020 Drashna Jaelre <@drashna>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-/*
 Use this for https://precondition.github.io/qmk-heatmap
 As it's simpler to tap buttons in sequence
 
@@ -42,18 +24,18 @@ As it's simpler to tap buttons in sequence
 
 enum layer_names {
     _BASE,
+    _EXTRA,
+    _EXTRA2,
     _NUM,
     _SYMB,
-    _FN,
-    _EXTRA,
-    _EXTRA2
+    _FN
 };
 
 // bottom keys from left to wight
-#define KLL KC_LCTRL
+#define KLL KC_LCTL
 #define KLR KC_SPC
-#define KRL KC_SFTENT
-#define KRR LALT_T(KC_BSPACE)
+#define KRL SC_SENT
+#define KRR LALT_T(QK_BOOT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_split_3x6_3(
@@ -64,43 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LGUI,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_LBRC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KLL, FN_MO13,     KLR,        KRL, FN_MO23,     KRR
-                                      //`--------------------------'  `--------------------------'
-  ),
-
-  [_NUM] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_BRIU, KC_VOLU, KC_BSPC,  KC_ESC,  KC_DEL,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MPRV, KC_MNXT,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_BRID, KC_VOLD, XXXXXXX, KC_LEAD, CW_TOGG,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, KC_MPLY,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KLL, _______,     KLR,        KRL, _______,     KRR
-                                      //`--------------------------'  `--------------------------'
-  ),
-
-  [_SYMB] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, HYPR(KC_A), HYPR(KC_S), HYPR(KC_D), HYPR(KC_F), HYPR(KC_G),       KC_UNDS,  KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KLL, _______,     KLR, LSFT(KC_ENT), _______,  KC_DEL
-                                      //`--------------------------'  `--------------------------'
-  ),
-
-  [_FN] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_PSCREEN,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,  KC_F11, KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, XXXXXXX,             KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,  KC_F12, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                              KLL, _______,     KLR,        KRL, _______,     KRR
+                                              KLL, TL_LOWR,     KLR,        KRL, TL_UPPR,     KRR
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -128,27 +74,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                               KLL, _______,     KLR,        KRL, _______,     KRR
                                       //`--------------------------'  `--------------------------'
   ),
+
+  [_NUM] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______, KC_BRIU, KC_VOLU, KC_BSPC,  KC_ESC,  KC_DEL,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MPRV, KC_MNXT,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______, KC_BRID, KC_VOLD, XXXXXXX, QK_LEAD, CW_TOGG,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END, XXXXXXX, KC_MPLY,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                              KLL, _______,     KLR,        KRL, _______,     KRR
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [_SYMB] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      _______, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______, HYPR(KC_A), HYPR(KC_S), HYPR(KC_D), HYPR(KC_F), HYPR(KC_G),       KC_UNDS,  KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS,  KC_GRV,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                              KLL, _______,     KLR, LSFT(KC_ENT), _______,  KC_DEL
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [_FN] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_PSCR,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______,  KC_F11, KC_MS_BTN2, KC_MS_BTN3, KC_MS_BTN1, XXXXXXX,             KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,  KC_F12, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                              KLL, _______,     KLR,        KRL, _______,     KRR
+                                      //`--------------------------'  `--------------------------'
+  )
 };
 
 void keyboard_post_init_user(void) {
     debug_enable=true;
 
-    vial_tap_dance_entry_t td = { TG(1),
-                                  KC_CAPS_LOCK,
-                                  KC_NO,
-                                  KC_NO,
-                                  TAPPING_TERM };
-
-    dynamic_keymap_set_tap_dance(0, &td); // the first value corresponds to the TD(i) slot
-
-    vial_combo_entry_t combo_capslock = { { KC_J, KC_L, COMBO_END }, KC_CAPS_LOCK };
-    vial_combo_entry_t combo_shift_capslock = { { KC_F, KC_S, COMBO_END }, LSFT(KC_CAPS_LOCK) };
-    // vial_combo_entry_t combo_esc = { { KC_F, KC_D, COMBO_END }, KC_ESC };
-
-    dynamic_keymap_set_combo(0, &combo_capslock);
-    dynamic_keymap_set_combo(1, &combo_shift_capslock);
-    // dynamic_keymap_set_combo(1, &com o_esc);
+    set_tri_layer_layers(_NUM, _SYMB, _FN);
 }
+
+const uint16_t PROGMEM combo_capslock[] = { KC_J, KC_L, COMBO_END };
+const uint16_t PROGMEM combo_shift_capslock[] = { KC_F, KC_S, COMBO_END };
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(combo_capslock, KC_CAPS_LOCK),
+    COMBO(combo_shift_capslock, LSFT(KC_CAPS_LOCK)), // keycodes with modifiers are possible too!
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     #ifdef CONSOLE_ENABLE
@@ -162,31 +137,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
              get_mods(),
              get_oneshot_mods(),
              record->tap.count
-             );
+         );
     #endif
     #endif
 
     return true;
 }
 
-LEADER_EXTERNS();
-
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    SEQ_FOUR_KEYS(KC_M, KC_A, KC_I, KC_L) {
-      // Anything you can do in a macro.
-      SEND_STRING("vtvz.ru@gmail.com");
+void leader_end_user(void) {
+    if (leader_sequence_four_keys(KC_M, KC_A, KC_I, KC_L)) {
+        SEND_STRING("vtvz.ru@gmail.com");
+    } else if (leader_sequence_three_keys(KC_R, KC_B, KC_T)) {
+        soft_reset_keyboard();
     }
+}
 
-    SEQ_THREE_KEYS(KC_R, KC_B, KC_T) {
-      soft_reset_keyboard();
-    }
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Keycodes that continue Caps Word, with shift applied.
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
+            return true;
 
-    SEQ_FIVE_KEYS(KC_S, KC_L, KC_A, KC_C, KC_K) {
-      tap_code16(HYPR(KC_S));
+        // Keycodes that continue Caps Word, without shifting.
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+        case TL_LOWR:
+        case TL_UPPR:
+            return true;
+
+        default:
+            return false;  // Deactivate Caps Word.
     }
-  }
 }
