@@ -5,6 +5,10 @@ keyboard:="crkbd"
 qmk *args:
   qmk {{ args }} -km {{ keymap }} -kb {{ keyboard }}
 
+qmk-update:
+  cd {{ qmk_home }} && git fetch --all --tags \
+    && git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
+
 setup:
   qmk setup -H {{ qmk_home }}
 

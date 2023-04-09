@@ -1,8 +1,8 @@
 LTO_ENABLE       = yes
 MOUSEKEY_ENABLE  = yes # Mouse keys
 OLED_ENABLE      = no # I dont have oled yet
-RGBLIGHT_ENABLE  = no # Enable WS2812 RGB underlight.
-VIA_ENABLE       = no # Enable VIA
+RGBLIGHT_ENABLE  = no # Disable WS2812 RGB underlight.
+VIA_ENABLE       = no # Disable VIA
 
 CAPS_WORD_ENABLE = yes
 COMBO_ENABLE     = yes
