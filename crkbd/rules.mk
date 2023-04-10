@@ -7,8 +7,9 @@ VIA_ENABLE       = no # Disable VIA
 CAPS_WORD_ENABLE = yes
 COMBO_ENABLE     = yes
 LEADER_ENABLE    = yes
-CONSOLE_ENABLE   = yes
+CONSOLE_ENABLE   = no
 TRI_LAYER_ENABLE = yes
 
 
 DYNAMIC_MACRO_ENABLE = no
+TAP_DANCE_ENABLE     = yes

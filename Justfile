@@ -5,7 +5,7 @@ keyboard:="crkbd"
 qmk *args:
   qmk {{ args }} -km {{ keymap }} -kb {{ keyboard }}
 
-qmk-update:
+upgrade:
   cd {{ qmk_home }} && git fetch --all --tags \
     && git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
 
@@ -24,8 +24,8 @@ flash-left:
 flash-right:
   just flash -bl avrdude-split-right
 
-compile:
-  just qmk compile
+compile *args:
+  just qmk compile {{ args }}
 
 udev:
   sudo sh -c 'udevadm control --reload && udevadm trigger'
