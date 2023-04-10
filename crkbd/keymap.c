@@ -23,12 +23,12 @@ As it's simpler to tap buttons in sequence
 #endif
 
 enum layer_names {
-    _BASE,
-    _EXTRA,
-    _EXTRA2,
-    _NUM,
-    _SYMB,
-    _FN
+  _BASE,
+  _EXTRA,
+  _EXTRA2,
+  _NUM,
+  _SYMB,
+  _FN
 };
 
 // bottom keys from left to wight
@@ -118,62 +118,72 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void keyboard_post_init_user(void) {
-    debug_enable=true;
+  debug_enable = true;
 
-    set_tri_layer_layers(_NUM, _SYMB, _FN);
+  set_tri_layer_layers(_NUM, _SYMB, _FN);
 }
 
-const uint16_t PROGMEM combo_capslock[] = { KC_J, KC_L, COMBO_END };
-const uint16_t PROGMEM combo_shift_capslock[] = { KC_F, KC_S, COMBO_END };
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo_capslock, KC_CAPS_LOCK),
-    COMBO(combo_shift_capslock, LSFT(KC_CAPS_LOCK)), // keycodes with modifiers are possible too!
+const uint16_t PROGMEM combo_capslock[] = {
+  KC_J,
+  KC_L,
+  COMBO_END
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    #ifdef CONSOLE_ENABLE
-    #ifdef KEYLOG_ENABLE
-        uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n",
-             keycode,
-             record->event.key.row,
-             record->event.key.col,
-             get_highest_layer(layer_state),
-             record->event.pressed,
-             get_mods(),
-             get_oneshot_mods(),
-             record->tap.count
-         );
-    #endif
-    #endif
+const uint16_t PROGMEM combo_shift_capslock[] = {
+  KC_F,
+  KC_S,
+  COMBO_END
+};
 
-    return true;
+combo_t key_combos[COMBO_COUNT] = {
+  COMBO(combo_capslock, KC_CAPS_LOCK),
+  COMBO(combo_shift_capslock, LSFT(KC_CAPS_LOCK)),
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t * record) {
+  #ifdef CONSOLE_ENABLE
+  #ifdef KEYLOG_ENABLE
+  uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n",
+    keycode,
+    record -> event.key.row,
+    record -> event.key.col,
+    get_highest_layer(layer_state),
+    record -> event.pressed,
+    get_mods(),
+    get_oneshot_mods(),
+    record -> tap.count
+  );
+  #endif
+  #endif
+
+  return true;
 }
 
 void leader_end_user(void) {
-    if (leader_sequence_four_keys(KC_M, KC_A, KC_I, KC_L)) {
-        SEND_STRING("vtvz.ru@gmail.com");
-    } else if (leader_sequence_three_keys(KC_R, KC_B, KC_T)) {
-        soft_reset_keyboard();
-    }
+  if (leader_sequence_four_keys(KC_M, KC_A, KC_I, KC_L)) {
+    SEND_STRING("vtvz.ru@gmail.com");
+  } else if (leader_sequence_three_keys(KC_R, KC_B, KC_T)) {
+    soft_reset_keyboard();
+  }
 }
 
 bool caps_word_press_user(uint16_t keycode) {
-    switch (keycode) {
-        // Keycodes that continue Caps Word, with shift applied.
-        case KC_A ... KC_Z:
-            add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to next key.
-            return true;
+  switch (keycode) {
+    // Keycodes that continue Caps Word, with shift applied.
+  case KC_A...KC_Z:
+    add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
+    return true;
 
-        // Keycodes that continue Caps Word, without shifting.
-        case KC_1 ... KC_0:
-        case KC_BSPC:
-        case KC_DEL:
-        case KC_UNDS:
-        case TL_LOWR:
-        case TL_UPPR:
-            return true;
+    // Keycodes that continue Caps Word, without shifting.
+  case KC_1...KC_0:
+  case KC_BSPC:
+  case KC_DEL:
+  case KC_UNDS:
+  case TL_LOWR:
+  case TL_UPPR:
+    return true;
 
-        default:
-            return false;  // Deactivate Caps Word.
-    }
+  default:
+    return false; // Deactivate Caps Word.
+  }
 }
