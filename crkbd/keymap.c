@@ -54,7 +54,7 @@ tap_dance_action_t tap_dance_actions[] = {
 
 enum layer_names {
   _BASE,
-  _EXTRA,
+  _COLEMAK_DH,
   _EXTRA2,
   _NUM,
   _SYMB,
@@ -81,15 +81,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  [_EXTRA] = LAYOUT_split_3x6_3(
+  [_COLEMAK_DH] = LAYOUT_split_3x6_3(
   //,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.
-      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+      KC_HYPR,      KC_Q  ,    KC_W,      KC_F,      KC_P,      KC_B,                               KC_J,      KC_L,      KC_U,      KC_Y,   KC_SCLN,   KC_BSPC,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
-      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+       KC_TAB,      KC_A,      KC_R,      KC_S,      KC_T,      KC_G,                               KC_M,      KC_N,      KC_E,      KC_I,      KC_O,   KC_QUOT,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
-      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+      KC_LGUI,      KC_Z,      KC_X,      KC_C,      KC_D,      KC_V,                               KC_K,      KC_H,   KC_COMM,    KC_DOT,  KC_SLASH,   KC_LBRC,
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
-                                                      KLL,   _______,       KLR,          KRL,   _______,       KRR
+                                                      KLL,   TL_LOWR,       KLR,          KRL,   TL_UPPR,       KRR
                                                   //`--------------------------'  `--------------------------------'
   ),
 
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
       _______,   KC_BRIU,   KC_VOLU,   KC_BSPC,    KC_ESC,    KC_DEL,                            KC_LEFT,   KC_DOWN,     KC_UP,  KC_RIGHT,HYPR(KC_M),   KC_MPLY,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
-      _______,   KC_BRID,   KC_VOLD,   CW_TOGG,   QK_LEAD,   XXXXXXX,                            KC_HOME,   KC_PGDN,   KC_PGUP,    KC_END,   KC_MPRV,TD(TD_NEXT),
+      _______,   KC_BRID,   KC_VOLD,    KC_TAB,   QK_LEAD,   CW_TOGG,                            KC_HOME,   KC_PGDN,   KC_PGUP,    KC_END,   KC_MPRV,TD(TD_NEXT),
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
                                                       KLL,   _______,       KLR,          KRL,   _______,       KRR
                                                   //`--------------------------'  `--------------------------------'
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
       _______,    KC_F11,KC_MS_BTN2,KC_MS_BTN3,KC_MS_BTN1,   XXXXXXX,                            KC_MS_L,   KC_MS_D,   KC_MS_U,   KC_MS_R,    KC_F12,   XXXXXXX,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
-      _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            KC_WH_L,   KC_WH_D,   KC_WH_U,   KC_WH_R,   XXXXXXX,   XXXXXXX,
+      _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,TG(_COLEMAK_DH),XXXXXXX,                          KC_WH_L,   KC_WH_D,   KC_WH_U,   KC_WH_R,   XXXXXXX,   XXXXXXX,
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
                                                       KLL,   _______,       KLR,          KRL,   _______,       KRR
                                                   //`--------------------------'  `--------------------------------'
@@ -165,10 +165,32 @@ const uint16_t PROGMEM combo_shift_capslock[] = {
   COMBO_END
 };
 
-combo_t key_combos[COMBO_COUNT] = {
-  COMBO(combo_capslock, KC_CAPS_LOCK),
-  COMBO(combo_shift_capslock, LSFT(KC_CAPS_LOCK)),
+enum combo_events {
+  CB_CAPS_LOCK,
+  CB_SHIFT_CAPS_LOCK,
 };
+
+combo_t key_combos[COMBO_COUNT] = {
+  [CB_CAPS_LOCK] = COMBO_ACTION(combo_capslock),
+  [CB_SHIFT_CAPS_LOCK] = COMBO_ACTION(combo_shift_capslock),
+};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case CB_CAPS_LOCK:
+      if (pressed) {
+        tap_code16(KC_CAPS_LOCK);
+        // layer_on(_COLEMAK_DH);
+      }
+      break;
+    case CB_SHIFT_CAPS_LOCK:
+      if (pressed) {
+        tap_code16(LSFT(KC_CAPS_LOCK));
+        layer_off(_COLEMAK_DH);
+      }
+      break;
+  }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t * record) {
   #ifdef CONSOLE_ENABLE
