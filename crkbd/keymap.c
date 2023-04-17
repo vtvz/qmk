@@ -24,10 +24,10 @@ As it's simpler to tap buttons in sequence
 
 // Tap Dance declarations
 enum {
-    TD_NEXT,
+  TD_NEXT,
 };
 
-void td_next (tap_dance_state_t *state, void *user_data) {
+void td_next(tap_dance_state_t *state, void *user_data) {
   if (state->count >= 2) {
     register_code(KC_LSFT);
     register_code(KC_LCTL);
@@ -38,11 +38,11 @@ void td_next (tap_dance_state_t *state, void *user_data) {
 
     clear_mods();
 
-    reset_tap_dance (state);
+    reset_tap_dance(state);
   } else {
     tap_code(KC_MNXT);
 
-    reset_tap_dance (state);
+    reset_tap_dance(state);
   }
 }
 
@@ -52,14 +52,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_NEXT] = ACTION_TAP_DANCE_FN(td_next),
 };
 
-enum layer_names {
-  _BASE,
-  _COLEMAK_DH,
-  _EXTRA2,
-  _NUM,
-  _SYMB,
-  _FN
-};
+enum layer_names { _BASE, _COLEMAK_DH, _EXTRA2, _NUM, _SYMB, _FN };
 
 // bottom keys from left to wight
 #define KLL KC_LCTL
@@ -67,6 +60,7 @@ enum layer_names {
 #define KRL SC_SENT
 #define KRR LALT_T(QK_BOOT)
 
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_split_3x6_3(
   //,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.
@@ -146,6 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                   //`--------------------------'  `--------------------------------'
   )
 };
+// clang-format on
 
 void keyboard_post_init_user(void) {
   debug_enable = true;
@@ -153,17 +148,9 @@ void keyboard_post_init_user(void) {
   set_tri_layer_layers(_NUM, _SYMB, _FN);
 }
 
-const uint16_t PROGMEM combo_capslock[] = {
-  KC_J,
-  KC_L,
-  COMBO_END
-};
+const uint16_t PROGMEM combo_capslock[] = {KC_J, KC_L, COMBO_END};
 
-const uint16_t PROGMEM combo_shift_capslock[] = {
-  KC_F,
-  KC_S,
-  COMBO_END
-};
+const uint16_t PROGMEM combo_shift_capslock[] = {KC_F, KC_S, COMBO_END};
 
 enum combo_events {
   CB_CAPS_LOCK,
@@ -171,42 +158,36 @@ enum combo_events {
 };
 
 combo_t key_combos[COMBO_COUNT] = {
-  [CB_CAPS_LOCK] = COMBO_ACTION(combo_capslock),
-  [CB_SHIFT_CAPS_LOCK] = COMBO_ACTION(combo_shift_capslock),
+    [CB_CAPS_LOCK] = COMBO_ACTION(combo_capslock),
+    [CB_SHIFT_CAPS_LOCK] = COMBO_ACTION(combo_shift_capslock),
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case CB_CAPS_LOCK:
-      if (pressed) {
-        tap_code16(KC_CAPS_LOCK);
-        // layer_on(_COLEMAK_DH);
-      }
-      break;
-    case CB_SHIFT_CAPS_LOCK:
-      if (pressed) {
-        tap_code16(LSFT(KC_CAPS_LOCK));
-        layer_off(_COLEMAK_DH);
-      }
-      break;
+  switch (combo_index) {
+  case CB_CAPS_LOCK:
+    if (pressed) {
+      tap_code16(KC_CAPS_LOCK);
+      // layer_on(_COLEMAK_DH);
+    }
+    break;
+  case CB_SHIFT_CAPS_LOCK:
+    if (pressed) {
+      tap_code16(LSFT(KC_CAPS_LOCK));
+      layer_off(_COLEMAK_DH);
+    }
+    break;
   }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t * record) {
-  #ifdef CONSOLE_ENABLE
-  #ifdef KEYLOGGER_ENABLE
-  uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n",
-    keycode,
-    record -> event.key.row,
-    record -> event.key.col,
-    get_highest_layer(layer_state),
-    record -> event.pressed,
-    get_mods(),
-    get_oneshot_mods(),
-    record -> tap.count
-  );
-  #endif
-  #endif
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef CONSOLE_ENABLE
+#ifdef KEYLOGGER_ENABLE
+  uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n", keycode,
+          record->event.key.row, record->event.key.col,
+          get_highest_layer(layer_state), record->event.pressed, get_mods(),
+          get_oneshot_mods(), record->tap.count);
+#endif
+#endif
 
   return true;
 }
@@ -222,12 +203,12 @@ void leader_end_user(void) {
 bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
     // Keycodes that continue Caps Word, with shift applied.
-  case KC_A...KC_Z:
+  case KC_A ... KC_Z:
     add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
     return true;
 
     // Keycodes that continue Caps Word, without shifting.
-  case KC_1...KC_0:
+  case KC_1 ... KC_0:
   case KC_BSPC:
   case KC_DEL:
   case KC_UNDS:
