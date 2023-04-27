@@ -14,7 +14,7 @@ struct last_key last_key = {
 
 bool keylog_enable = false;
 
-char keylogs_str[5];
+char keylogs_str[6];
 int keylogs_str_idx = 0;
 
 // clang-format off
