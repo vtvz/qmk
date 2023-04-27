@@ -21,6 +21,10 @@ ifdef CONSOLE_ENABLE
     endif
 endif
 
+ifeq ($(strip $(OLED_ENABLE)), yes)
+    SRC += oled/*.c
+endif
+
 ifneq ($(strip $(CONSOLE_ENABLE)), yes)
   OLED_ENABLE      = yes
   OLED_DRIVER      = SSD1306
