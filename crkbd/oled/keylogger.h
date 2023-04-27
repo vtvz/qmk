@@ -1,0 +1,1 @@
+#define KEYLOG_HISTORY_LEN 5

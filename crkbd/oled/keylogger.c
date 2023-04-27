@@ -1,3 +1,5 @@
+#include "keylogger.h"
+
 struct last_key {
   char name;
   uint16_t keycode;
@@ -12,10 +14,9 @@ struct last_key last_key = {
     .row = 0,
 };
 
-bool keylog_enable = false;
+bool keylog_enabled = false;
 
-char keylogs_str[5];
-int keylogs_str_idx = 0;
+char keylog_history[KEYLOG_HISTORY_LEN] = {};
 
 // clang-format off
 static const char code_to_name[256] = {
@@ -38,6 +39,16 @@ static const char code_to_name[256] = {
      25,0x9D,0x9D,0x9D,0x9D,0x9D,0x9D,0x9D,0x9D,  24,  25,  27,  26, ' ', ' ', ' '   // Fx
 };
 // clang-format on
+
+bool keylog_toggle(void) {
+  keylog_enabled = !keylog_enabled;
+
+  oled_clear();
+
+  return keylog_enabled;
+}
+
+bool is_keylog_enabled(void) { return keylog_enabled; }
 
 void process_keylog(uint16_t in_keycode, keyrecord_t *record) {
   if (!record->event.pressed) {
@@ -68,9 +79,11 @@ void process_keylog(uint16_t in_keycode, keyrecord_t *record) {
   last_key.row = record->event.key.row;
 
   // Rotate
-  for (int i = 1; i < sizeof(keylogs_str); i++) {
-    keylogs_str[i - 1] = keylogs_str[i];
+  for (int i = 1; i < KEYLOG_HISTORY_LEN; i++) {
+    keylog_history[i - 1] = keylog_history[i];
   }
 
-  keylogs_str[sizeof(keylogs_str) - 1] = name;
+  keylog_history[KEYLOG_HISTORY_LEN - 1] = name;
 }
+
+char *get_keylog_history(void) { return keylog_history; }

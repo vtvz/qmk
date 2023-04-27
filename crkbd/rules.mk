@@ -23,6 +23,7 @@ endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
     SRC += oled/*.c
+    SRC += oled/*.h
 endif
 
 ifneq ($(strip $(CONSOLE_ENABLE)), yes)

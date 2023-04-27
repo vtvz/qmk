@@ -191,8 +191,7 @@ void leader_end_user(void) {
 
 #ifdef OLED_ENABLE
   if (leader_sequence_three_keys(KC_K, KC_L, KC_G)) {
-    keylog_enable = !keylog_enable;
-    oled_clear();
+    keylog_toggle();
   }
 #endif
 }

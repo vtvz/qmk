@@ -1,14 +1,5 @@
 /* KEYBOARD PET START */
-
-#define MIN_WALK_SPEED 10
-#define MIN_RUN_SPEED 40
-
-/* advanced settings */
-#define ANIM_FRAME_DURATION 200 // how long each frame lasts in ms
-#define ANIM_SIZE                                                              \
-  96 // number of bytes in array. If you change sprites, minimize for adequate
-     // firmware size. max is 1024
-     //
+#include "luna.h"
 
 /* timers */
 uint32_t luna_anim_timer = 0;
@@ -23,7 +14,7 @@ bool luna_showed_jump = true;
 /* logic */
 static void render_luna(int LUNA_X, int LUNA_Y, uint8_t current_wpm) {
   /* Sit */
-  static const char PROGMEM sit[2][ANIM_SIZE] = {
+  static const char PROGMEM sit[2][LUNA_ANIM_SIZE] = {
       /* 'sit1', 32x22px */
       {
           0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -48,7 +39,7 @@ static void render_luna(int LUNA_X, int LUNA_Y, uint8_t current_wpm) {
        0x3e, 0x0f, 0x11, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}};
 
   /* Walk */
-  static const char PROGMEM walk[2][ANIM_SIZE] = {
+  static const char PROGMEM walk[2][LUNA_ANIM_SIZE] = {
       /* 'walk1', 32x22px */
       {
           0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x20, 0x10, 0x90, 0x90,
@@ -76,7 +67,7 @@ static void render_luna(int LUNA_X, int LUNA_Y, uint8_t current_wpm) {
       }};
 
   /* Run */
-  static const char PROGMEM run[2][ANIM_SIZE] = {
+  static const char PROGMEM run[2][LUNA_ANIM_SIZE] = {
       /* 'run1', 32x22px */
       {
           0x00, 0x00, 0x00, 0x00, 0xe0, 0x10, 0x08, 0x08, 0xc8, 0xb0, 0x80,
@@ -104,7 +95,7 @@ static void render_luna(int LUNA_X, int LUNA_Y, uint8_t current_wpm) {
       }};
 
   /* Bark */
-  static const char PROGMEM bark[2][ANIM_SIZE] = {
+  static const char PROGMEM bark[2][LUNA_ANIM_SIZE] = {
       /* 'bark1', 32x22px */
       {
           0x00, 0xc0, 0x20, 0x10, 0xd0, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -132,7 +123,7 @@ static void render_luna(int LUNA_X, int LUNA_Y, uint8_t current_wpm) {
       }};
 
   /* Sneak */
-  static const char PROGMEM sneak[2][ANIM_SIZE] = {
+  static const char PROGMEM sneak[2][LUNA_ANIM_SIZE] = {
       /* 'sneak1', 32x22px */
       {
           0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x40, 0x40, 0x40,
@@ -161,8 +152,9 @@ static void render_luna(int LUNA_X, int LUNA_Y, uint8_t current_wpm) {
 
   /* animation */
   void animate_luna(void) {
+    bool do_jump = false;
     /* jump */
-    if (luna_is_jumping || !luna_showed_jump) {
+    if (luna_is_jumping && !luna_showed_jump) {
       /* clear */
       oled_set_cursor(LUNA_X, LUNA_Y + 2);
       oled_write("     ", false);
@@ -170,6 +162,7 @@ static void render_luna(int LUNA_X, int LUNA_Y, uint8_t current_wpm) {
       oled_set_cursor(LUNA_X, LUNA_Y - 1);
 
       luna_showed_jump = true;
+      do_jump = true;
     } else {
       /* clear */
       oled_set_cursor(LUNA_X, LUNA_Y - 1);
@@ -183,19 +176,22 @@ static void render_luna(int LUNA_X, int LUNA_Y, uint8_t current_wpm) {
 
     /* current status */
     if (is_caps_word_on() || get_mods() & (MOD_LSFT | MOD_RSFT)) {
-      oled_write_raw_P(bark[luna_current_frame], ANIM_SIZE);
+      oled_write_raw_P(bark[luna_current_frame], LUNA_ANIM_SIZE);
 
     } else if (luna_is_sneaking) {
-      oled_write_raw_P(sneak[luna_current_frame], ANIM_SIZE);
+      oled_write_raw_P(sneak[luna_current_frame], LUNA_ANIM_SIZE);
 
-    } else if (current_wpm <= MIN_WALK_SPEED) {
-      oled_write_raw_P(sit[luna_current_frame], ANIM_SIZE);
+    } else if (do_jump) {
+      oled_write_raw_P(run[0], LUNA_ANIM_SIZE);
 
-    } else if (current_wpm <= MIN_RUN_SPEED) {
-      oled_write_raw_P(walk[luna_current_frame], ANIM_SIZE);
+    } else if (current_wpm <= LUNA_MIN_WALK_SPEED) {
+      oled_write_raw_P(sit[luna_current_frame], LUNA_ANIM_SIZE);
+
+    } else if (current_wpm <= LUNA_MIN_RUN_SPEED) {
+      oled_write_raw_P(walk[luna_current_frame], LUNA_ANIM_SIZE);
 
     } else {
-      oled_write_raw_P(run[luna_current_frame], ANIM_SIZE);
+      oled_write_raw_P(run[luna_current_frame], LUNA_ANIM_SIZE);
     }
   }
 
@@ -211,7 +207,7 @@ static void render_luna(int LUNA_X, int LUNA_Y, uint8_t current_wpm) {
 #endif
 
   /* animation timer */
-  if (timer_elapsed32(luna_anim_timer) > ANIM_FRAME_DURATION) {
+  if (timer_elapsed32(luna_anim_timer) > LUNA_ANIM_FRAME_DURATION) {
     luna_anim_timer = timer_read32();
     animate_luna();
   }
@@ -229,11 +225,10 @@ void process_luna(uint16_t keycode, keyrecord_t *record) {
     }
     break;
   case KC_SPC:
+  case KC_ENT:
     if (record->event.pressed) {
       luna_is_jumping = true;
       luna_showed_jump = false;
-    } else {
-      luna_is_jumping = false;
     }
     break;
   }

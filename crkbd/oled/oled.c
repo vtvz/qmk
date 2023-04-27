@@ -9,36 +9,50 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 void oled_render_layer_state(void) {
-  oled_write_P(PSTR("Layer"), false);
+  oled_set_cursor(0, 0);
+  oled_write("Layer", false);
 
+  oled_set_cursor(0, 1);
   switch (get_highest_layer(layer_state)) {
   case _BASE:
-    oled_write_ln_P(PSTR("Qwert"), false);
+    oled_write("Qwert", false);
     break;
   case _COLEMAK_DH:
-    oled_write_ln_P(PSTR("Clemk"), false);
+    oled_write("CmkDH", false);
     break;
   case _EXTRA2:
-    oled_write_ln_P(PSTR("Extra"), false);
+    oled_write("Extra", false);
     break;
   case _NUM:
-    oled_write_ln_P(PSTR("NumNv"), false);
+    oled_write("NumNv", false);
     break;
   case _SYMB:
-    oled_write_ln_P(PSTR("Symb "), false);
+    oled_write("Symbl", false);
     break;
   case _FN:
-    oled_write_ln_P(PSTR("Fn&Ms"), false);
+    oled_write("Fn&Ms", false);
     break;
   default:
-    oled_write_ln_P(PSTR("Dunno"), false);
+    oled_write("Dunno", false);
   }
 }
 
-void oled_render_keylog(void) {
-  if (keylog_enable) {
+void oled_render_keylog(uint8_t col, uint8_t line) {
+  if (is_keylog_enabled()) {
     // oled_write_ln(keylog_str, false);
-    oled_write_ln(keylogs_str, false);
+    oled_set_cursor(col, line);
+    oled_write(get_keylog_history(), false);
+
+    static char keylog_str[5];
+
+    oled_set_cursor(col, line + 1);
+    snprintf(keylog_str, sizeof(keylog_str), "%4u", last_key.keycode);
+    oled_write(keylog_str, false);
+
+    oled_set_cursor(col, line + 2);
+    snprintf(keylog_str, sizeof(keylog_str), "%2u:%u", last_key.row,
+             last_key.col);
+    oled_write(keylog_str, false);
   }
 }
 
@@ -53,12 +67,11 @@ void oled_render_logo(void) {
   oled_write_P(crkbd_logo, false);
 }
 
-char wpm_str[6] = {};
+char wpm_str[5] = {};
 
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
     oled_render_layer_state();
-    oled_render_keylog();
 
     // sprintf(wpm, "WPM: %u", get_current_wpm());
     uint16_t wpm = get_current_wpm();
@@ -68,7 +81,11 @@ bool oled_task_user(void) {
       snprintf(wpm_str, sizeof(wpm_str), "%uwpm", wpm);
     }
 
-    oled_write_ln(wpm_str, false);
+    oled_set_cursor(0, 4);
+    oled_write(wpm_str, false);
+
+    oled_render_keylog(0, 6);
+
     render_luna(0, 13, get_current_wpm());
   } else {
     oled_render_logo();
