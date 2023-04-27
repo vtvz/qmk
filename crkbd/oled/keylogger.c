@@ -14,7 +14,7 @@ struct last_key last_key = {
 
 bool keylog_enable = false;
 
-char keylogs_str[6];
+char keylogs_str[5];
 int keylogs_str_idx = 0;
 
 // clang-format off
@@ -67,14 +67,10 @@ void process_keylog(uint16_t in_keycode, keyrecord_t *record) {
   last_key.col = record->event.key.col;
   last_key.row = record->event.key.row;
 
-  // update keylogs
-  if (keylogs_str_idx == sizeof(keylogs_str) - 1) {
-    keylogs_str_idx = 0;
-    for (int i = 0; i < sizeof(keylogs_str) - 1; i++) {
-      keylogs_str[i] = ' ';
-    }
+  // Rotate
+  for (int i = 1; i < sizeof(keylogs_str); i++) {
+    keylogs_str[i - 1] = keylogs_str[i];
   }
 
-  keylogs_str[keylogs_str_idx] = name;
-  keylogs_str_idx++;
+  keylogs_str[sizeof(keylogs_str) - 1] = name;
 }

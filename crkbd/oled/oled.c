@@ -58,6 +58,7 @@ char wpm_str[6] = {};
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
     oled_render_layer_state();
+    oled_render_keylog();
 
     // sprintf(wpm, "WPM: %u", get_current_wpm());
     uint16_t wpm = get_current_wpm();
@@ -69,8 +70,6 @@ bool oled_task_user(void) {
 
     oled_write_ln(wpm_str, false);
     render_luna(0, 13, get_current_wpm());
-
-    oled_render_keylog();
   } else {
     oled_render_logo();
   }
