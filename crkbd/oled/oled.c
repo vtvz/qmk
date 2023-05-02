@@ -8,11 +8,11 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return OLED_ROTATION_270;
 }
 
-void oled_render_layer_state(void) {
-  oled_set_cursor(0, 0);
+void oled_render_layer_state(uint8_t col, uint8_t line) {
+  oled_set_cursor(col, line);
   oled_write("Layer", false);
 
-  oled_set_cursor(0, 1);
+  oled_set_cursor(col, line + 1);
   switch (get_highest_layer(layer_state)) {
   case _BASE:
     oled_write("Qwert", false);
@@ -43,7 +43,7 @@ void oled_render_keylog(uint8_t col, uint8_t line) {
     oled_set_cursor(col, line);
     oled_write(get_keylog_history(), false);
 
-    static char keylog_str[5];
+    static char keylog_str[6];
 
     oled_set_cursor(col, line + 1);
     snprintf(keylog_str, sizeof(keylog_str), "%4u", last_key.keycode);
@@ -67,13 +67,12 @@ void oled_render_logo(void) {
   oled_write_P(crkbd_logo, false);
 }
 
-char wpm_str[5] = {};
-
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
-    oled_render_layer_state();
+    oled_render_layer_state(0, 1);
 
-    // sprintf(wpm, "WPM: %u", get_current_wpm());
+    static char wpm_str[5] = {};
+
     uint16_t wpm = get_current_wpm();
     if (wpm >= 100) {
       snprintf(wpm_str, sizeof(wpm_str), "%uwp", wpm);
