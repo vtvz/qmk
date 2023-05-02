@@ -49,6 +49,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
-enum layer_names { _BASE, _COLEMAK_DH, _EXTRA2, _NUM, _SYMB, _FN };
+#define _BASE 0
+#define _COLEMAK_DH 1
+#define _EXTRA2 2
+#define _NUM 3
+#define _SYMB 4
+#define _FN 5
 
 #define SFTENT_KEYS KC_LSFT, KC_TRNS, SFTENT_KEY
+
+#define NO_ACTION_ONESHOT

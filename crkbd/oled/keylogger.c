@@ -40,7 +40,7 @@ static const char code_to_name[256] = {
 };
 // clang-format on
 
-bool keylog_toggle(void) {
+bool oled_keylog_toggle(void) {
   keylog_enabled = !keylog_enabled;
 
   oled_clear();

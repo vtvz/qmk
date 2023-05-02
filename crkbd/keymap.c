@@ -27,9 +27,14 @@ As it's simpler to tap buttons in sequence
 #include "oled/oled.c"
 #endif
 
+#ifdef COMBO_ENABLE
+#include "feature/combo.c"
+#endif
+
 // Tap Dance declarations
 enum {
   TD_NEXT,
+  TD_BSPC,
 };
 
 void td_next(tap_dance_state_t *state, void *user_data) {
@@ -57,12 +62,6 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_NEXT] = ACTION_TAP_DANCE_FN(td_next),
 };
 
-// bottom keys from left to wight
-#define KLL KC_LCTL
-#define KLR KC_SPC
-#define KRL SC_SENT
-#define KRR LALT_T(QK_BOOT)
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_split_3x6_3(
@@ -73,20 +72,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
       KC_LGUI,      KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,                               KC_N,      KC_M,   KC_COMM,    KC_DOT,   KC_SLSH,   KC_LBRC,
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
-                                                      KLL,   TL_LOWR,       KLR,          KRL,   TL_UPPR,       KRR
+                                                  KC_LCTL,   TL_LOWR,    KC_SPC,      SC_SENT,   TL_UPPR,   KC_LALT
                                                   //`--------------------------'  `--------------------------------'
   ),
 
 
   [_COLEMAK_DH] = LAYOUT_split_3x6_3(
   //,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.
-      KC_HYPR,      KC_Q,      KC_W,      KC_F,      KC_P,      KC_B,                               KC_J,      KC_L,      KC_U,      KC_Y,   KC_SCLN,   KC_BSPC,
+      _______,      KC_Q,      KC_W,      KC_F,      KC_P,      KC_B,                               KC_J,      KC_L,      KC_U,      KC_Y,   KC_SCLN,   _______,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
-       KC_TAB,      KC_A,      KC_R,      KC_S,      KC_T,      KC_G,                               KC_M,      KC_N,      KC_E,      KC_I,      KC_O,   KC_QUOT,
+      _______,      KC_A,      KC_R,      KC_S,      KC_T,      KC_G,                               KC_M,      KC_N,      KC_E,      KC_I,      KC_O,   _______,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
-      KC_LGUI,      KC_Z,      KC_X,      KC_C,      KC_D,      KC_V,                               KC_K,      KC_H,   KC_COMM,    KC_DOT,  KC_SLASH,   KC_LBRC,
+      _______,      KC_Z,      KC_X,      KC_C,      KC_D,      KC_V,                               KC_K,      KC_H,   KC_COMM,    KC_DOT,  KC_SLASH,   _______,
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
-                                                      KLL,   TL_LOWR,       KLR,          KRL,   TL_UPPR,       KRR
+                                                  _______,   _______,   _______,      _______,   _______,   _______
                                                   //`--------------------------'  `--------------------------------'
   ),
 
@@ -99,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
-                                                      KLL,   _______,       KLR,          KRL,   _______,       KRR
+                                                  _______,   _______,   _______,      _______,   _______,   _______
                                                   //`--------------------------'  `--------------------------------'
   ),
 
@@ -112,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
       _______,   KC_BRID,   KC_VOLD,    KC_TAB,   QK_LEAD,   CW_TOGG,                            KC_HOME,   KC_PGDN,   KC_PGUP,    KC_END,   KC_MPRV,TD(TD_NEXT),
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
-                                                      KLL,   _______,       KLR,          KRL,   _______,       KRR
+                                                  _______,   _______,   _______,      _______,   _______,   _______
                                                   //`--------------------------'  `--------------------------------'
   ),
 
@@ -124,9 +123,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
       _______,HYPR(KC_A),HYPR(KC_S),HYPR(KC_D),HYPR(KC_F),HYPR(KC_G),                            KC_UNDS,    KC_EQL,   KC_LCBR,   KC_RCBR,   KC_PIPE,   KC_TILD,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
-      _______,HYPR(KC_Z),HYPR(KC_X),HYPR(KC_C),HYPR(KC_V),HYPR(KC_B),                            KC_MINS,   KC_PLUS,   KC_LBRC,   KC_RBRC,   KC_BSLS,    KC_GRV,
+      _______,HYPR(KC_Z),HYPR(KC_X),LSFT(KC_CAPS_LOCK),KC_CAPS_LOCK,HYPR(KC_B),                  KC_MINS,   KC_PLUS,   KC_LBRC,   KC_RBRC,   KC_BSLS,    KC_GRV,
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
-                                                      KLL,   _______,       KLR, LSFT(KC_ENT),   _______,    KC_DEL
+                                                  _______,   _______,   _______,      _______,   _______,    KC_DEL
                                                   //`--------------------------'  `--------------------------------'
   ),
 
@@ -139,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
       _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,TG(_COLEMAK_DH),XXXXXXX,                          KC_WH_L,   KC_WH_D,   KC_WH_U,   KC_WH_R,   XXXXXXX,   XXXXXXX,
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
-                                                      KLL,   _______,       KLR,          KRL,   _______,       KRR
+                                                  _______,   _______,   _______,      _______,   _______,   _______
                                                   //`--------------------------'  `--------------------------------'
   )
 };
@@ -151,37 +150,7 @@ void keyboard_post_init_user(void) {
   set_tri_layer_layers(_NUM, _SYMB, _FN);
 }
 
-const uint16_t PROGMEM combo_capslock[] = {KC_J, KC_L, COMBO_END};
-
-const uint16_t PROGMEM combo_shift_capslock[] = {KC_F, KC_S, COMBO_END};
-
-enum combo_events {
-  CB_CAPS_LOCK,
-  CB_SHIFT_CAPS_LOCK,
-};
-
-combo_t key_combos[COMBO_COUNT] = {
-    [CB_CAPS_LOCK] = COMBO_ACTION(combo_capslock),
-    [CB_SHIFT_CAPS_LOCK] = COMBO_ACTION(combo_shift_capslock),
-};
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-  switch (combo_index) {
-  case CB_CAPS_LOCK:
-    if (pressed) {
-      tap_code16(KC_CAPS_LOCK);
-      // layer_on(_COLEMAK_DH);
-    }
-    break;
-  case CB_SHIFT_CAPS_LOCK:
-    if (pressed) {
-      tap_code16(LSFT(KC_CAPS_LOCK));
-      layer_off(_COLEMAK_DH);
-    }
-    break;
-  }
-}
-
+#ifdef LEADER_ENABLE
 void leader_end_user(void) {
   if (leader_sequence_four_keys(KC_M, KC_A, KC_I, KC_L)) {
     SEND_STRING("vtvz.ru@gmail.com");
@@ -191,11 +160,13 @@ void leader_end_user(void) {
 
 #ifdef OLED_ENABLE
   if (leader_sequence_three_keys(KC_K, KC_L, KC_G)) {
-    keylog_toggle();
+    oled_keylog_toggle();
   }
-#endif
+#endif /* ifdef OLED_ENABLE */
 }
+#endif /* ifdef LEADER_ENABLELEADER_ENABLE */
 
+#ifdef CAPS_WORD_ENABLE
 bool caps_word_press_user(uint16_t keycode) {
   switch (keycode) {
     // Keycodes that continue Caps Word, with shift applied.
@@ -216,6 +187,7 @@ bool caps_word_press_user(uint16_t keycode) {
     return false; // Deactivate Caps Word.
   }
 }
+#endif /* ifdef CAPS_WORD_ENABLE */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
