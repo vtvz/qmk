@@ -18,6 +18,8 @@ As it's simpler to tap buttons in sequence
 
 #include QMK_KEYBOARD_H
 
+#include "layers.c"
+
 #ifdef CONSOLE_ENABLE
 #include "print.h"
 #endif
