@@ -36,7 +36,6 @@ As it's simpler to tap buttons in sequence
 // Tap Dance declarations
 enum {
   TD_NEXT,
-  TD_BSPC,
 };
 
 void td_next(tap_dance_state_t *state, void *user_data) {

@@ -50,5 +50,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
 #define SFTENT_KEYS KC_LSFT, KC_TRNS, SFTENT_KEY
-
-#define NO_ACTION_ONESHOT
