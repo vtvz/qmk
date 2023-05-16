@@ -38,6 +38,11 @@ enum {
   TD_NEXT,
 };
 
+enum custom_keycodes {
+  M_EN = SAFE_RANGE,
+  M_RU,
+};
+
 void td_next(tap_dance_state_t *state, void *user_data) {
   if (state->count >= 2) {
     register_code(KC_LSFT);
@@ -67,7 +72,7 @@ tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_split_3x6_3(
   //,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.
-      KC_HYPR,      KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,                               KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,   KC_BSPC,
+       KC_ESC,      KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,                               KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,   KC_BSPC,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
        KC_TAB,      KC_A,      KC_S,      KC_D,      KC_F,      KC_G,                               KC_H,      KC_J,      KC_K,      KC_L,   KC_SCLN,   KC_QUOT,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
@@ -84,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
       _______,      KC_A,      KC_R,      KC_S,      KC_T,      KC_G,                               KC_M,      KC_N,      KC_E,      KC_I,      KC_O,   _______,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
-      _______,      KC_Z,      KC_X,      KC_C,      KC_D,      KC_V,                               KC_K,      KC_H,   KC_COMM,    KC_DOT,  KC_SLASH,   _______,
+      _______,      KC_Z,      KC_X,      KC_C,LT(_EXTRA2,KC_D),KC_V,                               KC_K,      KC_H,   KC_COMM,    KC_DOT,  KC_SLASH,   _______,
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
                                                   _______,   _______,   _______,      _______,   _______,   _______
                                                   //`--------------------------'  `--------------------------------'
@@ -95,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.
       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
-      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                               KC_H,      KC_J,      KC_K,      KC_L,   KC_SCLN,   KC_QUOT,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
@@ -124,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
       _______,HYPR(KC_A),HYPR(KC_S),HYPR(KC_D),HYPR(KC_F),HYPR(KC_G),                            KC_UNDS,    KC_EQL,   KC_LCBR,   KC_RCBR,   KC_PIPE,   KC_TILD,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
-      _______,HYPR(KC_Z),HYPR(KC_X),LSFT(KC_CAPS_LOCK),KC_CAPS_LOCK,HYPR(KC_B),                  KC_MINS,   KC_PLUS,   KC_LBRC,   KC_RBRC,   KC_BSLS,    KC_GRV,
+      _______,   XXXXXXX,   XXXXXXX,      M_RU,      M_EN,   XXXXXXX,                            KC_MINS,   KC_PLUS,   KC_LBRC,   KC_RBRC,   KC_BSLS,    KC_GRV,
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
                                                   _______,   _______,   _______,      _______,   _______,    KC_DEL
                                                   //`--------------------------'  `--------------------------------'
@@ -205,5 +210,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   process_luna(keycode, record);
 #endif
+
+  switch (keycode) {
+  case M_EN:
+    if (record->event.pressed) {
+      tap_code16(KC_CAPS_LOCK);
+      layer_on(_COLEMAK_DH);
+    }
+    break;
+  case M_RU:
+    if (record->event.pressed) {
+      // when keycode QMKBEST is pressed
+      tap_code16(LSFT(KC_CAPS_LOCK));
+      layer_off(_COLEMAK_DH);
+    }
+    break;
+  }
   return true;
 }
+
+void keyboard_pre_init_user(void) { layer_on(_COLEMAK_DH); }
