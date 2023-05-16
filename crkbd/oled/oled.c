@@ -39,6 +39,16 @@ void oled_render_layer_state(uint8_t col, uint8_t line) {
 
 void oled_render_keylog(uint8_t col, uint8_t line) {
   if (is_keylog_enabled()) {
+#if OLED_TIMEOUT > 0
+    /* the animation prevents the normal timeout from occuring */
+    if (last_input_activity_elapsed() > OLED_TIMEOUT &&
+        last_led_activity_elapsed() > OLED_TIMEOUT) {
+      oled_off();
+      return;
+    } else {
+      oled_on();
+    }
+#endif
     // oled_write_ln(keylog_str, false);
     oled_set_cursor(col, line);
     oled_write(get_keylog_history(), false);
