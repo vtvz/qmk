@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
+// #define DYNAMIC_KEYMAP_LAYER_COUNT 6
 #define TAPPING_TERM 180
 #define DYNAMIC_KEYMAP_MACRO_COUNT 0
 
@@ -28,11 +28,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Select hand configuration */
 
-#define MASTER_LEFT
+// #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
-
-#define COMBO_COUNT 2
 
 #ifdef MOUSEKEY_ENABLE
 #define MOUSEKEY_DELAY 10
@@ -45,7 +43,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_MAX_SPEED 8
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 #endif
-
-#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
 #define SFTENT_KEYS KC_LSFT, KC_TRNS, SFTENT_KEY

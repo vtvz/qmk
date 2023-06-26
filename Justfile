@@ -13,10 +13,17 @@ setup:
   qmk setup -H {{ qmk_home }}
 
 link:
-  ln -Tsf {{ quote(justfile_directory() + "/crkbd") }} {{ qmk_home }}/keyboards/{{ keyboard }}/keymaps/{{ keymap }}
+  ln -Tsf {{ quote(justfile_directory() + "/crkbd") }} {{ qmk_home }}/keyboards/crkbd/keymaps/{{ keymap }}
+  ln -Tsf {{ quote(justfile_directory() + "/cantor") }} {{ qmk_home }}/keyboards/cantor/keymaps/{{ keymap }}
 
 flash *args:
-  just qmk flash {{ args }}
+  just keymap={{ keymap }} keyboard={{ keyboard }} qmk flash {{ args }}
+
+flash-cantor *args:
+  just keymap={{ keymap }} keyboard=cantor qmk flash {{ args }}
+
+flash-corne *args:
+  just keymap={{ keymap }} keyboard=crkbd qmk flash {{ args }}
 
 flash-left:
   just flash -bl avrdude-split-left

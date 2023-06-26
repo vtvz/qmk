@@ -24,15 +24,6 @@ As it's simpler to tap buttons in sequence
 #include "print.h"
 #endif
 
-#ifdef OLED_ENABLE
-#include "oled/keylogger.c"
-#include "oled/oled.c"
-#endif
-
-#ifdef COMBO_ENABLE
-#include "feature/combo.c"
-#endif
-
 enum custom_keycodes {
   M_EN = SAFE_RANGE,
   M_RU,
@@ -167,12 +158,6 @@ void leader_end_user(void) {
   } else if (leader_sequence_two_keys(KC_R, KC_B)) {
     soft_reset_keyboard();
   }
-
-#ifdef OLED_ENABLE
-  if (leader_sequence_three_keys(KC_K, KC_L, KC_G)) {
-    oled_keylog_toggle();
-  }
-#endif /* ifdef OLED_ENABLE */
 }
 #endif /* ifdef LEADER_ENABLELEADER_ENABLE */
 
@@ -207,12 +192,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           get_highest_layer(layer_state), record->event.pressed, get_mods(),
           get_oneshot_mods(), record->tap.count);
 #endif
-#endif
-
-#ifdef OLED_ENABLE
-  process_keylog(keycode, record);
-
-  process_luna(keycode, record);
 #endif
 
   switch (keycode) {
