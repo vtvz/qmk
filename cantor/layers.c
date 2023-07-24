@@ -5,4 +5,5 @@ enum layer_names {
   _NUM,
   _SYMB,
   _FN,
+  _ZOOM,
 };

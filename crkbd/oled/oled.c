@@ -32,6 +32,9 @@ void oled_render_layer_state(uint8_t col, uint8_t line) {
   case _FN:
     oled_write("Fn&Ms", false);
     break;
+  case _ZOOM:
+    oled_write("Zoom", false);
+    break;
   default:
     oled_write("Dunno", false);
   }

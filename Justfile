@@ -34,6 +34,9 @@ flash-right:
 compile *args:
   just qmk compile {{ args }}
 
+compile-cantor *args:
+  just keymap={{ keymap }} keyboard=cantor qmk compile {{ args }}
+
 udev:
   sudo sh -c 'udevadm control --reload && udevadm trigger'
 

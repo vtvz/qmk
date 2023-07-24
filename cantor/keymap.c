@@ -27,6 +27,7 @@ As it's simpler to tap buttons in sequence
 enum custom_keycodes {
   M_EN = SAFE_RANGE,
   M_RU,
+  CKC_ZOOM,
 };
 
 #ifdef TAP_DANCE_ENABLE
@@ -141,7 +142,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
                                                   _______,   _______,   _______,      _______,   _______,   _______
                                                   //`--------------------------'  `--------------------------------'
-  )
+  ),
+
+  [_ZOOM] = LAYOUT_split_3x6_3(
+  //,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.
+    TG(_ZOOM),   XXXXXXX,   XXXXXXX,LALT(KC_A),   XXXXXXX,   KC_VOLU,                            KC_VOLU,   XXXXXXX,LALT(KC_A),   XXXXXXX,   XXXXXXX, TG(_ZOOM),
+  //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
+      XXXXXXX,   XXXXXXX,   XXXXXXX,LALT(KC_V),   XXXXXXX,   KC_VOLD,                            KC_VOLU,   XXXXXXX,LALT(KC_V),   XXXXXXX,   XXXXXXX,   XXXXXXX,
+  //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
+      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+  //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
+                                               LALT(KC_Y),   XXXXXXX, CKC_ZOOM,      CKC_ZOOM,   XXXXXXX,LALT(KC_Y)
+                                                  //`--------------------------'  `--------------------------------'
+  ),
 };
 // clang-format on
 
@@ -157,6 +170,8 @@ void leader_end_user(void) {
     SEND_STRING("vtvz.ru@gmail.com");
   } else if (leader_sequence_two_keys(KC_R, KC_B)) {
     soft_reset_keyboard();
+  } else if (leader_sequence_two_keys(KC_Z, KC_M)) {
+    layer_on(_ZOOM);
   }
 }
 #endif /* ifdef LEADER_ENABLELEADER_ENABLE */
@@ -207,6 +222,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       tap_code16(LSFT(KC_CAPS_LOCK));
       layer_off(_COLEMAK_DH);
     }
+    break;
+  case CKC_ZOOM:
+    tap_code16(LALT(KC_A));
     break;
   }
   return true;
