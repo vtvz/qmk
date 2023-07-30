@@ -1,4 +1,5 @@
 #include "keylogger.h"
+#include "vtvz.h"
 
 struct last_key {
   char name;

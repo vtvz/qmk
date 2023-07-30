@@ -1,3 +1,7 @@
+#pragma once
+
+#include "quantum.h"
+
 #define LUNA_MIN_WALK_SPEED 10
 #define LUNA_MIN_RUN_SPEED 40
 

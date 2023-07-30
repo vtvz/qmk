@@ -1,4 +1,6 @@
+#include "keylogger.c"
 #include "luna.c"
+#include "vtvz.h"
 #include <stdio.h>
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -33,7 +35,7 @@ void oled_render_layer_state(uint8_t col, uint8_t line) {
     oled_write("Fn&Ms", false);
     break;
   case _ZOOM:
-    oled_write("Zoom", false);
+    oled_write("Zooom", false);
     break;
   default:
     oled_write("Dunno", false);
@@ -103,4 +105,10 @@ bool oled_task_user(void) {
     oled_render_logo();
   }
   return false;
+}
+
+void oled_process_record(uint16_t keycode, keyrecord_t *record) {
+  process_keylog(keycode, record);
+
+  process_luna(keycode, record);
 }

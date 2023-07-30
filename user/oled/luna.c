@@ -1,5 +1,6 @@
 /* KEYBOARD PET START */
 #include "luna.h"
+#include "vtvz.h"
 
 /* timers */
 uint32_t luna_anim_timer = 0;

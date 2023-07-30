@@ -18,26 +18,7 @@ As it's simpler to tap buttons in sequence
 
 #include QMK_KEYBOARD_H
 
-#include "layers.c"
-
-#ifdef CONSOLE_ENABLE
-#include "print.h"
-#endif
-
-#ifdef OLED_ENABLE
-#include "oled/keylogger.c"
-#include "oled/oled.c"
-#endif
-
-#ifdef COMBO_ENABLE
-#include "feature/combo.c"
-#endif
-
-enum custom_keycodes {
-  M_EN = SAFE_RANGE,
-  M_RU,
-  CKC_ZOOM,
-};
+#include "vtvz.h"
 
 #ifdef TAP_DANCE_ENABLE
 // Tap Dance declarations
@@ -166,89 +147,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 // clang-format on
-
-void keyboard_post_init_user(void) {
-  debug_enable = true;
-
-  set_tri_layer_layers(_NUM, _SYMB, _FN);
-}
-
-#ifdef LEADER_ENABLE
-void leader_end_user(void) {
-  if (leader_sequence_two_keys(KC_M, KC_A)) {
-    SEND_STRING("vtvz.ru@gmail.com");
-  } else if (leader_sequence_two_keys(KC_R, KC_B)) {
-    soft_reset_keyboard();
-  } else if (leader_sequence_two_keys(KC_Z, KC_M)) {
-    layer_on(_ZOOM);
-  }
-
-#ifdef OLED_ENABLE
-  if (leader_sequence_three_keys(KC_K, KC_L, KC_G)) {
-    oled_keylog_toggle();
-  }
-#endif /* ifdef OLED_ENABLE */
-}
-#endif /* ifdef LEADER_ENABLELEADER_ENABLE */
-
-#ifdef CAPS_WORD_ENABLE
-bool caps_word_press_user(uint16_t keycode) {
-  switch (keycode) {
-    // Keycodes that continue Caps Word, with shift applied.
-  case KC_A ... KC_Z:
-    add_weak_mods(MOD_BIT(KC_LSFT)); // Apply shift to next key.
-    return true;
-
-    // Keycodes that continue Caps Word, without shifting.
-  case KC_1 ... KC_0:
-  case KC_BSPC:
-  case KC_DEL:
-  case KC_UNDS:
-  case TL_LOWR:
-  case TL_UPPR:
-    return true;
-
-  default:
-    return false; // Deactivate Caps Word.
-  }
-}
-#endif /* ifdef CAPS_WORD_ENABLE */
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef CONSOLE_ENABLE
-#ifdef KEYLOGGER_ENABLE
-  uprintf("0x%04X,%u,%u,%u,%b,0x%02X,0x%02X,%u\n", keycode,
-          record->event.key.row, record->event.key.col,
-          get_highest_layer(layer_state), record->event.pressed, get_mods(),
-          get_oneshot_mods(), record->tap.count);
-#endif
-#endif
-
-#ifdef OLED_ENABLE
-  process_keylog(keycode, record);
-
-  process_luna(keycode, record);
-#endif
-
-  switch (keycode) {
-  case M_EN:
-    if (record->event.pressed) {
-      tap_code16(KC_CAPS_LOCK);
-      layer_invert(_COLEMAK_DH);
-    }
-    break;
-  case M_RU:
-    if (record->event.pressed) {
-      // when keycode QMKBEST is pressed
-      tap_code16(LSFT(KC_CAPS_LOCK));
-      layer_off(_COLEMAK_DH);
-    }
-    break;
-  case CKC_ZOOM:
-    tap_code16(LALT(KC_A));
-    break;
-  }
-  return true;
-}
-
-void keyboard_pre_init_user(void) { layer_on(_COLEMAK_DH); }
