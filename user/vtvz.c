@@ -8,6 +8,8 @@
 #include "keylogger.c"
 #endif
 
+#include "langswitch.c"
+
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode,
                                                  keyrecord_t *record) {
   return true;
@@ -22,21 +24,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   keylogger_process_record(keycode, record);
 #endif
 
+  langswitch_process_record(keycode, record);
+
   switch (keycode) {
-  case M_EN:
-    if (record->event.pressed) {
-      tap_code16(KC_CAPS_LOCK);
-      layer_invert(_COLEMAK_DH);
-    }
-    break;
-  case M_RU:
-    if (record->event.pressed) {
-      // when keycode QMKBEST is pressed
-      tap_code16(LSFT(KC_CAPS_LOCK));
-      layer_off(_COLEMAK_DH);
-    }
-    break;
   case CKC_ZOOM:
+    // This is for the press and release for push-to-talk funtionality
     tap_code16(LALT(KC_A));
     break;
   }
