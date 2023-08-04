@@ -4,7 +4,7 @@
 #include "oled/oled.c"
 #endif
 
-#ifdef KEYLOGGER_ENABLE
+#ifdef CONSOLE_KEYLOGGER_ENABLE
 #include "keylogger.c"
 #endif
 
@@ -18,7 +18,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   oled_process_record(keycode, record);
 #endif
 
-#ifdef KEYLOGGER_ENABLE
+#ifdef CONSOLE_KEYLOGGER_ENABLE
   keylogger_process_record(keycode, record);
 #endif
 

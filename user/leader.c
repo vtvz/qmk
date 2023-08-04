@@ -19,10 +19,11 @@ void leader_end_user(void) {
     layer_on(_ZOOM);
   }
 
-#ifdef OLED_ENABLE
+#ifdef OLED_KEYLOGGER_ENABLE
   if (leader_sequence_three_keys(KC_K, KC_L, KC_G)) {
     oled_keylog_toggle();
   }
-#endif /* ifdef OLED_ENABLE */
+#endif /* ifdef OLED_KEYLOGGER_ENABLE */
+
   leader_end_keymap();
 }

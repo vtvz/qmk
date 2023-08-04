@@ -1,5 +1,7 @@
+#ifdef OLED_KEYLOGGER_ENABLE
 #include "keylogger.c"
-#include "luna.c"
+#endif
+#include "pet.c"
 #include "vtvz.h"
 #include <stdio.h>
 
@@ -42,6 +44,7 @@ void oled_render_layer_state(uint8_t col, uint8_t line) {
   }
 }
 
+#ifdef OLED_KEYLOGGER_ENABLE
 void oled_render_keylog(uint8_t col, uint8_t line) {
   if (is_keylog_enabled()) {
 #if OLED_TIMEOUT > 0
@@ -70,6 +73,7 @@ void oled_render_keylog(uint8_t col, uint8_t line) {
     oled_write(keylog_str, false);
   }
 }
+#endif
 
 void oled_render_logo(void) {
   static const char PROGMEM crkbd_logo[] = {
@@ -98,9 +102,11 @@ bool oled_task_user(void) {
     oled_set_cursor(0, 4);
     oled_write(wpm_str, false);
 
+#ifdef OLED_KEYLOGGER_ENABLE
     oled_render_keylog(0, 6);
+#endif
 
-    render_luna(0, 13, get_current_wpm());
+    render_pet(0, 13, get_current_wpm());
   } else {
     oled_render_logo();
   }
@@ -108,7 +114,9 @@ bool oled_task_user(void) {
 }
 
 void oled_process_record(uint16_t keycode, keyrecord_t *record) {
+#ifdef OLED_KEYLOGGER_ENABLE
   process_keylog(keycode, record);
+#endif
 
-  process_luna(keycode, record);
+  process_pet(keycode, record);
 }
