@@ -1,9 +1,13 @@
+# 10150 bytes free
+
 LTO_ENABLE       = yes
 VIA_ENABLE       = no # Disable VIA
 
-CONSOLE_KEYLOGGER_ENABLE ?= no
-OLED_KEYLOGGER_ENABLE    ?= no
-OLED_PET                 ?= LUNA
+# −7450 bytes (2700 bytes free)
+OLED_ENABLE            = no
+# -692 to oled (2008 bytes free)
+OLED_KEYLOGGER_ENABLE ?= no
+OLED_PET              ?= LUNA
 
 MOUSEKEY_ENABLE  = yes # Mouse keys
 RGBLIGHT_ENABLE  = no # Disable WS2812 RGB underlight.
@@ -15,8 +19,10 @@ TRI_LAYER_ENABLE = yes
 DYNAMIC_MACRO_ENABLE = no
 TAP_DANCE_ENABLE     = yes
 
-CONSOLE_ENABLE   = no
-OLED_ENABLE      = no
+# −2188 bytes (7962 bytes free)
+CONSOLE_ENABLE            = no
+# -202 to console (7760 bytes free)
+CONSOLE_KEYLOGGER_ENABLE ?= no
 
 AVR_USE_MINIMAL_PRINTF = yes
 GRAVE_ESC_ENABLE = no
@@ -25,7 +31,6 @@ MAGIC_ENABLE = no
 include $(KEYMAP_PATH)/post_rules.mk
 
 ifeq ($(strip $(CONSOLE_KEYLOGGER_ENABLE)), yes)
-  OLED_ENABLE    = no
   CONSOLE_ENABLE = yes
   OPT_DEFS      += -DCONSOLE_KEYLOGGER_ENABLE
 endif
