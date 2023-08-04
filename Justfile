@@ -15,6 +15,7 @@ setup:
 link:
   ln -Tsf {{ quote(justfile_directory() + "/crkbd") }} {{ qmk_home }}/keyboards/crkbd/keymaps/{{ keymap }}
   ln -Tsf {{ quote(justfile_directory() + "/cantor") }} {{ qmk_home }}/keyboards/cantor/keymaps/{{ keymap }}
+  ln -Tsf {{ quote(justfile_directory() + "/user") }} {{ qmk_home }}/users/{{ keymap }}
 
 flash *args:
   just keymap={{ keymap }} keyboard={{ keyboard }} qmk flash {{ args }}
