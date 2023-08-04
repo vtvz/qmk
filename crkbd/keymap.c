@@ -136,9 +136,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ZOOM] = LAYOUT_split_3x6_3(
   //,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.
-    TG(_ZOOM),   XXXXXXX,   XXXXXXX,LALT(KC_A),   XXXXXXX,   KC_VOLU,                            KC_VOLU,   XXXXXXX,LALT(KC_A),   XXXXXXX,   XXXXXXX, TG(_ZOOM),
+    TG(_ZOOM),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_VOLU,                            KC_VOLU,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, TG(_ZOOM),
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
-      XXXXXXX,   XXXXXXX,   XXXXXXX,LALT(KC_V),   XXXXXXX,   KC_VOLD,                            KC_VOLU,   XXXXXXX,LALT(KC_V),   XXXXXXX,   XXXXXXX,   XXXXXXX,
+      XXXXXXX,   XXXXXXX,   XXXXXXX,LALT(KC_V),   XXXXXXX,   KC_VOLD,                            KC_VOLD,   XXXXXXX,LALT(KC_V),   XXXXXXX,   XXXXXXX,   XXXXXXX,
   //|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|
       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
   //|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|
