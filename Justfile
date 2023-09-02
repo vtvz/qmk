@@ -1,6 +1,6 @@
 qmk_home:="~/.qmk"
 keymap:="vtvz"
-keyboard:="crkbd"
+keyboard:=""
 
 qmk *args:
   qmk {{ args }} -km {{ keymap }} -kb {{ keyboard }}
@@ -17,9 +17,6 @@ link:
   ln -Tsf {{ quote(justfile_directory() + "/cantor") }} {{ qmk_home }}/keyboards/cantor/keymaps/{{ keymap }}
   ln -Tsf {{ quote(justfile_directory() + "/user") }} {{ qmk_home }}/users/{{ keymap }}
 
-flash *args:
-  just keymap={{ keymap }} keyboard={{ keyboard }} qmk flash {{ args }}
-
 flash-cantor *args:
   just keymap={{ keymap }} keyboard=cantor qmk flash {{ args }}
 
@@ -32,8 +29,8 @@ flash-left:
 flash-right:
   just flash -bl avrdude-split-right
 
-compile *args:
-  just qmk compile {{ args }}
+compile-corne *args:
+  just keymap={{ keymap }} keyboard=crkbd qmk compile {{ args }}
 
 compile-cantor *args:
   just keymap={{ keymap }} keyboard=cantor qmk compile {{ args }}
