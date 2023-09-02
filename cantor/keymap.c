@@ -18,41 +18,8 @@ As it's simpler to tap buttons in sequence
 
 #include QMK_KEYBOARD_H
 
+#include "tap_dance.h"
 #include "vtvz.h"
-
-#ifdef TAP_DANCE_ENABLE
-// Tap Dance declarations
-enum {
-  TD_NEXT,
-  TD_HARD,
-};
-
-void td_next(tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 2) {
-    register_code(KC_LSFT);
-    register_code(KC_LCTL);
-    register_code(KC_LGUI);
-    register_code(KC_LALT);
-
-    tap_code(KC_Q);
-
-    clear_mods();
-
-    reset_tap_dance(state);
-  } else {
-    tap_code(KC_MNXT);
-
-    reset_tap_dance(state);
-  }
-}
-
-// Tap Dance definitions
-tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Escape, twice for Caps Lock
-    [TD_NEXT] = ACTION_TAP_DANCE_FN(td_next),
-    [TD_HARD] = ACTION_TAP_DANCE_DOUBLE(KC_M, KC_RBRC),
-};
-#endif /* ifdef TAP_DANCE_ENABLE */
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

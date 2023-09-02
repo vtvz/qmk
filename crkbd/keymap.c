@@ -18,41 +18,8 @@ As it's simpler to tap buttons in sequence
 
 #include QMK_KEYBOARD_H
 
+#include "tap_dance.h"
 #include "vtvz.h"
-
-#ifdef TAP_DANCE_ENABLE
-// Tap Dance declarations
-enum {
-  TD_NEXT,
-  TD_HARD,
-};
-
-void td_next(tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 2) {
-    register_code(KC_LSFT);
-    register_code(KC_LCTL);
-    register_code(KC_LGUI);
-    register_code(KC_LALT);
-
-    tap_code(KC_Q);
-
-    clear_mods();
-
-    reset_tap_dance(state);
-  } else {
-    tap_code(KC_MNXT);
-
-    reset_tap_dance(state);
-  }
-}
-
-// Tap Dance definitions
-tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for Escape, twice for Caps Lock
-    [TD_NEXT] = ACTION_TAP_DANCE_FN(td_next),
-    [TD_HARD] = ACTION_TAP_DANCE_DOUBLE(KC_M, KC_RBRC),
-};
-#endif /* ifdef TAP_DANCE_ENABLE */
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -73,11 +40,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.*/
       _______,      KC_Q,      KC_W,      KC_F,      KC_P,      KC_B,                               KC_J,      KC_L,      KC_U,      KC_Y,   KC_SCLN,   _______,
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
-      _______,      KC_A,      KC_R,      KC_S,LT(_EXTRA2,KC_T),KC_G,                               KC_M,      KC_N,      KC_E,      KC_I,      KC_O,   _______,
+      _______,      KC_A,      KC_R,LT(_EXTRA2,KC_S),KC_T,      KC_G,                               KC_M,      KC_N,      KC_E,      KC_I,      KC_O,   _______,
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
       _______,      KC_Z,      KC_X,      KC_C,      KC_D      ,KC_V,                               KC_K,      KC_H,   KC_COMM,    KC_DOT,  KC_SLASH,   _______,
   /*|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|*/
-                                                  KC_LCTL,   _______,   _______,      _______,   _______,   KC_LALT
+                                                  KC_LCTL,   _______,   _______,      _______,   _______,   CKC_QWERTY
                                             /*`--------------------------------'  `--------------------------------'*/
   ),
 
@@ -86,11 +53,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.*/
       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
-      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                               KC_H,      KC_J,      KC_K,      KC_L,   KC_SCLN,   KC_QUOT,
+      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                               KC_H,      KC_J,      KC_K,      KC_L,   KC_LSFT,   KC_QUOT,
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
-      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_LSFT,   XXXXXXX,
   /*|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|*/
-                                                  _______,   _______,   _______,      _______,   _______,   _______
+                                                  _______,   _______,   _______,      _______,   _______,   CKC_QWERTY
                                             /*`--------------------------------'  `--------------------------------'*/
   ),
 

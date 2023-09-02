@@ -16,5 +16,6 @@ enum custom_keycodes {
   M_EN = SAFE_RANGE,
   M_RU,
   CKC_ZOOM,
+  CKC_QWERTY,
   NEW_SAFE_RANGE,
 };

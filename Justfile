@@ -6,7 +6,7 @@ qmk *args:
   qmk {{ args }} -km {{ keymap }} -kb {{ keyboard }}
 
 upgrade:
-  cd {{ qmk_home }} && git fetch --all --tags \
+  set -x && cd {{ qmk_home }} && git fetch --all --tags \
     && git checkout $(git describe --tags `git rev-list --tags --max-count=1`)
 
 setup:
