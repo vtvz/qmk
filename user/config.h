@@ -52,9 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.*/ \
   TG(_ZOOM),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_VOLU,                            KC_VOLU,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, TG(_ZOOM), \
 /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/ \
-    XXXXXXX,   XXXXXXX,   XXXXXXX,LALT(KC_V),   XXXXXXX,   KC_VOLD,                            KC_VOLD,   XXXXXXX,LALT(KC_V),   XXXXXXX,   XXXXXXX,   XXXXXXX, \
+    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,LALT(KC_V),   KC_VOLD,                            KC_VOLD,LALT(KC_V),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, \
 /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/ \
-    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, \
+    KC_VOLD,   KC_VOLU,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_VOLD,   KC_VOLU, \
 /*|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|*/ \
                                              LALT(KC_Y),   XXXXXXX, CKC_ZOOM,      CKC_ZOOM,   XXXXXXX,LALT(KC_Y) \
                                           /*`--------------------------------'  `--------------------------------'*/ \
