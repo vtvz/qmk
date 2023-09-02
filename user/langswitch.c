@@ -24,6 +24,9 @@ void langswitch_process_record(uint16_t keycode, keyrecord_t *record) {
     case LM_CSPC:
       tap_code16(LCTL(KC_SPC));
       break;
+    case LM_WSPC:
+      tap_code16(LGUI(KC_SPC));
+      break;
     }
 
     layer_invert(_COLEMAK_DH);
@@ -39,6 +42,9 @@ void langswitch_process_record(uint16_t keycode, keyrecord_t *record) {
       break;
     case LM_CSPC:
       tap_code16(LCTL(KC_SPC));
+      break;
+    case LM_WSPC:
+      tap_code16(LGUI(KC_SPC));
       break;
     }
     layer_off(_COLEMAK_DH);

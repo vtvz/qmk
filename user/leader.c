@@ -32,6 +32,10 @@ void leader_end_user(void) {
     langswitch_change_mode(LM_CSPC);
   }
 
+  if (leader_sequence_three_keys(KC_L, KC_W, KC_S)) {
+    langswitch_change_mode(LM_WSPC);
+  }
+
 #ifdef OLED_KEYLOGGER_ENABLE
   if (leader_sequence_three_keys(KC_K, KC_L, KC_G)) {
     oled_keylog_toggle();
