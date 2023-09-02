@@ -8,6 +8,10 @@
 #include "keylogger.c"
 #endif
 
+#ifdef TAP_DANCE_ENABLE
+#include "tap_dance.c"
+#endif
+
 #include "langswitch.c"
 
 __attribute__((weak)) bool process_record_keymap(uint16_t keycode,
