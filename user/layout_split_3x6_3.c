@@ -101,6 +101,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             /*`--------------------------------'  `--------------------------------'*/
   ),
 
-  [_ZOOM] = LAYOUT_ZOOM_MODE,
+  #ifdef ZOOM_MODE
+  [_ZOOM] = LAYOUT_split_3x6_3(
+  /*,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.*/
+    TG(_ZOOM),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_VOLU,                            KC_VOLU,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, TG(_ZOOM),
+  /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
+      XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,LALT(KC_V),   KC_VOLD,                            KC_VOLD,LALT(KC_V),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,
+  /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
+      KC_VOLD,   KC_VOLU,   XXXXXXX,   XXXXXXX,   KC_MS_L,   KC_MS_R,                            KC_MS_L,   KC_MS_R,   XXXXXXX,   XXXXXXX,   KC_VOLD,   KC_VOLU,
+  /*|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|*/
+                                                 CKC_ZM_H,   XXXXXXX, CKC_ZM_A,      CKC_ZM_A,   XXXXXXX,  CKC_ZM_H
+                                            /*`--------------------------------'  `--------------------------------'*/
+  )
+  #endif
 };
 // clang-format on

@@ -15,6 +15,7 @@ RGBLIGHT_ENABLE  = no # Disable WS2812 RGB underlight.
 CAPS_WORD_ENABLE = yes
 LEADER_ENABLE    = yes
 TRI_LAYER_ENABLE = yes
+ZOOM_MODE       ?= no
 
 DYNAMIC_MACRO_ENABLE = no
 TAP_DANCE_ENABLE     = yes
@@ -53,6 +54,10 @@ else ifeq ($(strip $(OLED_PET)), SNAKEY)
   OPT_DEFS += -DOLED_PET_SNAKEY
 else
   $(error Specify correct pet name)
+endif
+
+ifeq ($(strip $(ZOOM_MODE)), yes)
+  OPT_DEFS += -DZOOM_MODE
 endif
 
 SRC += vtvz.c

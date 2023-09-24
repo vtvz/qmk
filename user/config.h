@@ -46,17 +46,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
 #define SFTENT_KEYS KC_LSFT, KC_TRNS, SFTENT_KEY
-
-// clang-format off
-#define LAYOUT_ZOOM_MODE LAYOUT_split_3x6_3( \
-/*,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.*/ \
-  TG(_ZOOM),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_VOLU,                            KC_VOLU,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, TG(_ZOOM), \
-/*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/ \
-    XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,LALT(KC_V),   KC_VOLD,                            KC_VOLD,LALT(KC_V),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX, \
-/*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/ \
-    KC_VOLD,   KC_VOLU,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   KC_VOLD,   KC_VOLU, \
-/*|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|*/ \
-                                             LALT(KC_Y),   XXXXXXX, CKC_ZOOM,      CKC_ZOOM,   XXXXXXX,LALT(KC_Y) \
-                                          /*`--------------------------------'  `--------------------------------'*/ \
-)
-// clang-format on

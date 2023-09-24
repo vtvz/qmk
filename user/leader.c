@@ -16,9 +16,11 @@ void leader_end_user(void) {
     soft_reset_keyboard();
   }
 
-  if (leader_sequence_two_keys(KC_Z, KC_M)) {
+#ifdef ZOOM_MODE
+  if (leader_sequence_two_keys(KC_Z, KC_Z)) {
     layer_on(_ZOOM);
   }
+#endif
 
   if (leader_sequence_three_keys(KC_L, KC_C, KC_L)) {
     langswitch_change_mode(LM_CAPS);
