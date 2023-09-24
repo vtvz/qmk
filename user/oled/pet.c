@@ -243,7 +243,7 @@ static void render_pet(int PET_X, int PET_Y, uint8_t current_wpm) {
        0x3f, 0x3f, 0x37, 0x07, 0x03, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00}};
 #endif
 
-#ifdef OLED_PET_PET
+#ifdef OLED_PET_LUNA
   /* Sit */
   static const char PROGMEM sit[2][PET_ANIM_SIZE] = {
       /* 'sit1', 32x22px */
