@@ -16,6 +16,7 @@ CAPS_WORD_ENABLE = yes
 LEADER_ENABLE    = yes
 TRI_LAYER_ENABLE = yes
 ZOOM_MODE       ?= no
+ONE_HAND_MODE   ?= no
 
 DYNAMIC_MACRO_ENABLE = no
 TAP_DANCE_ENABLE     = yes
@@ -58,6 +59,11 @@ endif
 
 ifeq ($(strip $(ZOOM_MODE)), yes)
   OPT_DEFS += -DZOOM_MODE
+endif
+
+ifeq ($(strip $(ONE_HAND_MODE)), yes)
+  COMBO_ENABLE = yes
+  OPT_DEFS += -DONE_HAND_MODE
 endif
 
 SRC += vtvz.c

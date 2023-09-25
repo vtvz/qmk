@@ -21,11 +21,17 @@ As it's simpler to tap buttons in sequence
 #include "tap_dance.h"
 #include "vtvz.h"
 
+#ifdef ONE_HAND_MODE
+// For some reason you need to include it in keyboard's keymap itself
+// https://github.com/qmk/qmk_firmware/issues/21137
+#include "one_hand_combos.c"
+#endif
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_split_3x6_3(
   /*,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.*/
-       KC_ESC,      KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,                               KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,   KC_BSPC,
+       KC_ESC,      KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,                               KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,  KC_BSPC,
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
        KC_TAB,      KC_A,      KC_S,      KC_D,      KC_F,      KC_G,                               KC_H,      KC_J,      KC_K,      KC_L,   KC_SCLN,   KC_QUOT,
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
@@ -111,6 +117,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_VOLD,   KC_VOLU,   XXXXXXX,   XXXXXXX,   KC_MS_L,   KC_MS_R,                            KC_MS_L,   KC_MS_R,   XXXXXXX,   XXXXXXX,   KC_VOLD,   KC_VOLU,
   /*|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|*/
                                                  CKC_ZM_H,   XXXXXXX, CKC_ZM_A,      CKC_ZM_A,   XXXXXXX,  CKC_ZM_H
+                                            /*`--------------------------------'  `--------------------------------'*/
+  ),
+  #endif
+
+  #ifdef ONE_HAND_MODE
+  [_OH] = LAYOUT_split_3x6_3(
+  /*,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.*/
+      KC_BSPC,      KC_P,      KC_O,      KC_I,      KC_U,      KC_Y,                               KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,   KC_BSPC,
+  /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
+      KC_QUOT,   KC_SCLN,      KC_L,      KC_K,      KC_J,      KC_H,                               KC_H,      KC_J,      KC_K,      KC_L,   KC_SCLN,   KC_QUOT,
+  /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+--__------|*/
+      KC_LBRC,   KC_SLSH,    KC_DOT,   KC_COMM,      KC_M,      KC_N,                               KC_N,      KC_M,  KC_COMM,    KC_DOT,   KC_SLSH,    KC_LBRC,
+  /*|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|*/
+                                                   KC_SPC,   SC_SENT,    KC_SPC,       KC_SPC,   SC_SENT,    KC_SPC
                                             /*`--------------------------------'  `--------------------------------'*/
   )
   #endif

@@ -22,6 +22,18 @@ void leader_end_user(void) {
   }
 #endif
 
+#ifdef ONE_HAND_MODE
+  if (leader_sequence_two_keys(KC_O, KC_H) ||
+      leader_sequence_two_keys(KC_A, KC_D) ||
+      leader_sequence_two_keys(KC_SCLN, KC_M) ||
+      leader_sequence_two_keys(KC_A, KC_V)) {
+    // Do I need this at all?
+    // langswitch_process_tap_code(M_RU);
+    layer_on(_OH);
+    combo_enable();
+  }
+#endif
+
   if (leader_sequence_three_keys(KC_L, KC_C, KC_L)) {
     langswitch_change_mode(LM_CAPS);
   }

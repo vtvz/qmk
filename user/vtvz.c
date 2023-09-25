@@ -28,4 +28,8 @@ void keyboard_post_init_user(void) {
 
 __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
 
-void keyboard_pre_init_user(void) { layer_on(_COLEMAK_DH); }
+void keyboard_pre_init_user(void) {
+  layer_on(_COLEMAK_DH);
+
+  combo_disable();
+}

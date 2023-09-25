@@ -7,11 +7,7 @@ void langswitch_change_mode(uint8_t lang_mode_code) {
   lang_mode = lang_mode_code;
 }
 
-void langswitch_process_record(uint16_t keycode, keyrecord_t *record) {
-  if (!record->event.pressed) {
-    return;
-  }
-
+void langswitch_process_tap_code(uint16_t keycode) {
   switch (keycode) {
   case M_EN:
     switch (lang_mode) {
@@ -28,8 +24,6 @@ void langswitch_process_record(uint16_t keycode, keyrecord_t *record) {
       tap_code16(LGUI(KC_SPC));
       break;
     }
-
-    layer_invert(_COLEMAK_DH);
     break;
 
   case M_RU:
@@ -47,7 +41,27 @@ void langswitch_process_record(uint16_t keycode, keyrecord_t *record) {
       tap_code16(LGUI(KC_SPC));
       break;
     }
+    break;
+  }
+}
+
+void langswitch_process_layer(uint16_t keycode) {
+  switch (keycode) {
+  case M_EN:
+    layer_invert(_COLEMAK_DH);
+    break;
+
+  case M_RU:
     layer_off(_COLEMAK_DH);
     break;
   }
+}
+
+void langswitch_process_record(uint16_t keycode, keyrecord_t *record) {
+  if (!record->event.pressed) {
+    return;
+  }
+
+  langswitch_process_layer(keycode);
+  langswitch_process_tap_code(keycode);
 }

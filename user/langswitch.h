@@ -10,3 +10,5 @@ enum language_mode_codes {
 };
 
 void langswitch_change_mode(uint8_t lang_mode_code);
+
+void langswitch_process_tap_code(uint16_t keycode);

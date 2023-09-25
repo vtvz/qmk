@@ -9,6 +9,7 @@ enum layer_names {
   _NUM,
   _SYMB,
   _FN,
+  _OH,
 #ifdef ZOOM_MODE
   _ZOOM,
 #endif
