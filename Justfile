@@ -17,26 +17,17 @@ link:
   ln -Tsf {{ quote(justfile_directory() + "/cantor") }} {{ qmk_home }}/keyboards/cantor/keymaps/{{ keymap }}
   ln -Tsf {{ quote(justfile_directory() + "/user") }} {{ qmk_home }}/users/{{ keymap }}
 
-flash-cantor *args:
+cantor-flash *args:
   just keymap={{ keymap }} keyboard=cantor qmk flash {{ args }}
 
-flash-corne *args:
+corne-flash *args:
   just keymap={{ keymap }} keyboard=crkbd qmk flash {{ args }}
 
-flash-left:
-  just flash -bl avrdude-split-left
-
-flash-right:
-  just flash -bl avrdude-split-right
-
-compile-corne *args:
+corne-compile *args:
   just keymap={{ keymap }} keyboard=crkbd qmk compile {{ args }}
 
-compile-cantor *args:
+cantor-compile *args:
   just keymap={{ keymap }} keyboard=cantor qmk compile {{ args }}
-
-udev:
-  sudo sh -c 'udevadm control --reload && udevadm trigger'
 
 console:
   qmk console -d 4653:0001
