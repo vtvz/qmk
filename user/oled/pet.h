@@ -11,4 +11,8 @@
 
 // number of bytes in array. If you change sprites, minimize for adequate
 // firmware size. max is 1024
+#ifdef OLED_PET_OLIVER
+#define PET_ANIM_SIZE 128
+#else
 #define PET_ANIM_SIZE 96
+#endif

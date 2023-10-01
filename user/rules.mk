@@ -53,6 +53,8 @@ else ifeq ($(strip $(OLED_PET)), FELIX)
   OPT_DEFS += -DOLED_PET_FELIX
 else ifeq ($(strip $(OLED_PET)), SNAKEY)
   OPT_DEFS += -DOLED_PET_SNAKEY
+else ifeq ($(strip $(OLED_PET)), OLIVER)
+  OPT_DEFS += -DOLED_PET_OLIVER
 else
   $(error Specify correct pet name)
 endif
