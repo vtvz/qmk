@@ -30,6 +30,7 @@ __attribute__((weak)) void keyboard_pre_init_keymap(void) {}
 
 void keyboard_pre_init_user(void) {
   layer_on(_COLEMAK_DH);
-
+#ifdef COMBO_ENABLE
   combo_disable();
+#endif /* ifdef COMBO_ENABLE */
 }
