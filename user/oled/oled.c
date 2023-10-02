@@ -108,11 +108,7 @@ bool oled_task_user(void) {
     oled_render_keylog(0, 6);
 #endif
 
-#ifdef OLED_PET_OLIVER
-    render_pet(0, 12, get_current_wpm());
-#else
-    render_pet(0, 13, get_current_wpm());
-#endif
+    render_pet(0, PET_OFFSET, get_current_wpm());
   } else {
     oled_render_logo();
   }

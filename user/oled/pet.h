@@ -13,6 +13,8 @@
 // firmware size. max is 1024
 #ifdef OLED_PET_OLIVER
 #define PET_ANIM_SIZE 128
+#define PET_OFFSET 12
 #else
 #define PET_ANIM_SIZE 96
+#define PET_OFFSET 13
 #endif
