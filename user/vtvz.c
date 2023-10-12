@@ -12,6 +12,18 @@
 #include "tap_dance.c"
 #endif
 
+#ifdef CAPS_WORD_ENABLE
+#include "caps_word.c"
+#endif
+
+#ifdef SECRETS_ENABLE
+#include "secrets.c"
+#endif /* ifdef SECRETS_ENABLE */
+
+#ifdef LEADER_ENABLE
+#include "leader.c"
+#endif
+
 #include "langswitch.c"
 
 #include "process_record.c"

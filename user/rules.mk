@@ -9,6 +9,8 @@ OLED_ENABLE            = no
 OLED_KEYLOGGER_ENABLE ?= no
 OLED_PET              ?= LUNA
 
+SECRETS_ENABLE ?= yes
+
 MOUSEKEY_ENABLE  = yes # Mouse keys
 RGBLIGHT_ENABLE  = no # Disable WS2812 RGB underlight.
 
@@ -68,14 +70,10 @@ ifeq ($(strip $(ONE_HAND_MODE)), yes)
   OPT_DEFS += -DONE_HAND_MODE
 endif
 
+ifeq ($(strip $(SECRETS_ENABLE)), yes)
+    ifneq ("$(wildcard $(KEYMAP_PATH)/secrets.h)","")
+      OPT_DEFS += -DSECRETS_ENABLE
+    endif
+endif
+
 SRC += vtvz.c
-
-ifeq ($(strip $(LEADER_ENABLE)), yes)
-  # Include my fancy rgb functions source here
-  SRC += leader.c
-endif
-
-ifeq ($(strip $(CAPS_WORD_ENABLE)), yes)
-  # Include my fancy rgb functions source here
-  SRC += caps_word.c
-endif

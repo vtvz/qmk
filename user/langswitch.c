@@ -45,23 +45,26 @@ void langswitch_process_tap_code(uint16_t keycode) {
   }
 }
 
-void langswitch_process_layer(uint16_t keycode) {
+bool langswitch_process_layer(uint16_t keycode) {
   switch (keycode) {
   case M_EN:
-    layer_invert(_COLEMAK_DH);
+    layer_on(_COLEMAK_DH);
+    return false;
     break;
 
   case M_RU:
     layer_off(_COLEMAK_DH);
+    return false;
     break;
   }
+  return true;
 }
 
-void langswitch_process_record(uint16_t keycode, keyrecord_t *record) {
+bool langswitch_process_record(uint16_t keycode, keyrecord_t *record) {
   if (!record->event.pressed) {
-    return;
+    return true;
   }
 
-  langswitch_process_layer(keycode);
   langswitch_process_tap_code(keycode);
+  return langswitch_process_layer(keycode);
 }

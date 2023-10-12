@@ -9,10 +9,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
 #ifdef CONSOLE_KEYLOGGER_ENABLE
-  keylogger_process_record(keycode, record);
+  if (!keylogger_process_record(keycode, record)) {
+    return false;
+  }
 #endif
 
-  langswitch_process_record(keycode, record);
+  if (!langswitch_process_record(keycode, record)) {
+    return false;
+  }
+
+#ifdef SECRETS_ENABLE
+  secrets_process_record(keycode, record);
+#endif
 
 #ifdef ZOOM_MODE
   switch (keycode) {
@@ -26,6 +34,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       tap_code16(KC_MS_D);
       wait_ms(100);
       tap_code16(KC_MS_U);
+      // continue as CKC_ZM_H is an alias to alt+y
     }
     break;
   }

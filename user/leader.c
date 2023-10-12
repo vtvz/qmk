@@ -50,6 +50,28 @@ void leader_end_user(void) {
     langswitch_change_mode(LM_WSPC);
   }
 
+#ifdef SECRETS_ENABLE
+  if (leader_sequence_two_keys(KC_S, KC_Q)) {
+    secrets_send_string(0);
+  }
+
+  if (leader_sequence_two_keys(KC_S, KC_W)) {
+    secrets_send_string(1);
+  }
+
+  if (leader_sequence_two_keys(KC_S, KC_F)) {
+    secrets_send_string(2);
+  }
+
+  if (leader_sequence_two_keys(KC_S, KC_P)) {
+    secrets_send_string(3);
+  }
+
+  if (leader_sequence_two_keys(KC_S, KC_B)) {
+    secrets_send_string(4);
+  }
+#endif
+
 #ifdef OLED_KEYLOGGER_ENABLE
   if (leader_sequence_three_keys(KC_K, KC_L, KC_G)) {
     oled_keylog_toggle();
