@@ -37,6 +37,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // continue as CKC_ZM_H is an alias to alt+y
     }
     break;
+  case CKC_ZM_S:
+    tap_code16(KC_MS_D);
+    wait_ms(100);
+    tap_code16(KC_MS_U);
+
+    return false;
+    break;
   }
 #endif
 

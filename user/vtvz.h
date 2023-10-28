@@ -20,6 +20,7 @@ enum custom_keycodes {
   M_RU,
 #ifdef ZOOM_MODE
   CKC_ZM_A, // Audio
+  CKC_ZM_S, // Shake
 #endif
 #ifdef SECRETS_ENABLE
   CKC_SECRET_1,
