@@ -2,12 +2,12 @@
 #include "vtvz.h"
 
 void td_next(tap_dance_state_t *state, void *user_data) {
-  if (state->count >= 2) {
-    tap_code16(HYPR(KC_Q));
+  if (state->interrupted || !state->pressed) {
+    tap_code(KC_MNXT);
 
     reset_tap_dance(state);
   } else {
-    tap_code(KC_MNXT);
+    tap_code16(CKC_DIS);
 
     reset_tap_dance(state);
   }

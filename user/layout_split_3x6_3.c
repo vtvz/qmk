@@ -21,12 +21,6 @@ As it's simpler to tap buttons in sequence
 #include "tap_dance.h"
 #include "vtvz.h"
 
-#ifdef ONE_HAND_MODE
-// For some reason you need to include it in keyboard's keymap itself
-// https://github.com/qmk/qmk_firmware/issues/21137
-#include "one_hand_combos.c"
-#endif
-
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_split_3x6_3(
@@ -72,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.*/
       _______,      KC_1,      KC_2,      KC_3,      KC_4,      KC_5,                               KC_6,      KC_7,      KC_8,      KC_9,      KC_0,   KC_BSPC,
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
-      _______,   KC_BRIU,   KC_VOLU,   KC_BSPC,    KC_ESC,    KC_DEL,                            KC_LEFT,   KC_DOWN,     KC_UP,  KC_RIGHT,HYPR(KC_M),   KC_MPLY,
+      _______,   KC_BRIU,   KC_VOLU,   KC_BSPC,    KC_ESC,    KC_DEL,                            KC_LEFT,   KC_DOWN,     KC_UP,  KC_RIGHT,  CKC_SPOT,   KC_MPLY,
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
       _______,   KC_BRID,   KC_VOLD,    KC_TAB,   QK_LEAD,   CW_TOGG,                            KC_HOME,   KC_PGDN,   KC_PGUP,    KC_END,   KC_MPRV,TD(TD_NEXT),
   /*|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|*/
@@ -86,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.*/
       _______,   KC_EXLM,     KC_AT,   KC_HASH,    KC_DLR,   KC_PERC,                            KC_CIRC,   KC_AMPR,   KC_ASTR,   KC_LPRN,   KC_RPRN,   KC_BSPC,
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
-      _______,HYPR(KC_A),HYPR(KC_S),HYPR(KC_D),HYPR(KC_F),HYPR(KC_G),                            KC_UNDS,    KC_EQL,   KC_LCBR,   KC_RCBR,   KC_PIPE,   KC_TILD,
+      _______,   CKC_KEE,   CKC_SLK,  CKC_TERM,    CKC_FF,    CKC_TG,                            KC_UNDS,    KC_EQL,   KC_LCBR,   KC_RCBR,   KC_PIPE,   KC_TILD,
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
       _______,   XXXXXXX,   XXXXXXX,      M_RU,      M_EN,   XXXXXXX,                            KC_MINS,   KC_PLUS,   KC_LBRC,   KC_RBRC,   KC_BSLS,    KC_GRV,
   /*|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|*/
@@ -119,20 +113,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  CKC_ZM_H,  CKC_ZM_S, CKC_ZM_A,      CKC_ZM_A,  CKC_ZM_S,  CKC_ZM_H
                                             /*`--------------------------------'  `--------------------------------'*/
   ),
-  #endif
-
-  #ifdef ONE_HAND_MODE
-  [_OH] = LAYOUT_split_3x6_3(
-  /*,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.*/
-      KC_BSPC,      KC_P,      KC_O,      KC_I,      KC_U,      KC_Y,                               KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,   KC_BSPC,
-  /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
-      KC_QUOT,   KC_SCLN,      KC_L,      KC_K,      KC_J,      KC_H,                               KC_H,      KC_J,      KC_K,      KC_L,   KC_SCLN,   KC_QUOT,
-  /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+--__------|*/
-      KC_LBRC,   KC_SLSH,    KC_DOT,   KC_COMM,      KC_M,      KC_N,                               KC_N,      KC_M,  KC_COMM,    KC_DOT,   KC_SLSH,    KC_LBRC,
-  /*|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|*/
-                                                   KC_SPC,   SC_SENT,    KC_SPC,       KC_SPC,   SC_SENT,    KC_SPC
-                                            /*`--------------------------------'  `--------------------------------'*/
-  )
   #endif
 };
 // clang-format on
