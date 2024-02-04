@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define TAP_CODE_DELAY 10
 #define TAPPING_TERM 180
 #define DYNAMIC_KEYMAP_MACRO_COUNT 0
 
