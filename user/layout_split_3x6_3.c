@@ -75,7 +75,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  // The left side contains Hyper variants of alpha to navigate througs apps
   [_SYMB] = LAYOUT_split_3x6_3(
   /*,---------------------------------------------------------------.                        ,-----------------------------------------------------------------.*/
       _______,   KC_EXLM,     KC_AT,   KC_HASH,    KC_DLR,   KC_PERC,                            KC_CIRC,   KC_AMPR,   KC_ASTR,   KC_LPRN,   KC_RPRN,   KC_BSPC,
@@ -95,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
       _______,    KC_F11,KC_MS_BTN2,KC_MS_BTN3,KC_MS_BTN1,   XXXXXXX,                            KC_MS_L,   KC_MS_D,   KC_MS_U,   KC_MS_R,    KC_F12,   XXXXXXX,
   /*|--------+----------+----------+----------+----------+----------|                        |----------+----------+----------+----------+----------+----------|*/
-      _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,TG(_COLEMAK_DH),XXXXXXX,                          KC_WH_L,   KC_WH_D,   KC_WH_U,   KC_WH_R,   XXXXXXX,   XXXXXXX,
+      _______,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,                            KC_WH_L,   KC_WH_D,   KC_WH_U,   KC_WH_R,   XXXXXXX,   XXXXXXX,
   /*|--------+----------+----------+----------+----------+----------+----------|  |----------+----------+----------+----------+----------+----------+----------|*/
                                                   _______,   _______,   _______,      _______,   _______,   _______
                                             /*`--------------------------------'  `--------------------------------'*/

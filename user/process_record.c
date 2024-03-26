@@ -9,9 +9,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
 
 #ifdef CONSOLE_KEYLOGGER_ENABLE
-  if (!keylogger_process_record(keycode, record)) {
-    return false;
-  }
+  keylogger_process_record(keycode, record);
 #endif
 
   if (!langswitch_process_record(keycode, record)) {
