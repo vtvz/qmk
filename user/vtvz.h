@@ -5,7 +5,7 @@
 enum layer_names {
   _BASE,
   _COLEMAK_DH,
-  _EXTRA2,
+  _VIM,
   _NUM,
   _SYMB,
   _FN,

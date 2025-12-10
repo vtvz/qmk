@@ -21,8 +21,8 @@ void oled_render_layer_state(uint8_t col, uint8_t line) {
   case _COLEMAK_DH:
     oled_write("CmkDH", false);
     break;
-  case _EXTRA2:
-    oled_write("Extra", false);
+  case _VIM:
+    oled_write("Vim  ", false);
     break;
   case _NUM:
     oled_write("NumNv", false);
