@@ -32,8 +32,16 @@ cantor-compile *args:
 console:
   qmk console -d 4653:0001
 
+# Make sorted log without bottom keys
+prepare-log-no-bottom:
+  cat keylog.csv | sort | grep -E "^(0x[A-F0-9]+,)[^3,7]" > keylog-safe.csv
+
 prepare-log:
   cat keylog.csv | sort > keylog-safe.csv
 
+log-raw:
+  just console | grep -o -E --line-buffered "(0x[A-F0-9]+,)?[0-9]+,[0-9]+,[0-9]{1,2}"
+
 log:
-  just console | grep -o -E --line-buffered "(0x[A-F0-9]+,)?[0-9]+,[0-9]+,[0-9]{1,2}" | tee -a keylog.csv
+  @echo "Logging started. It's quiet"
+  just log-raw >> keylog.csv

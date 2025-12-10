@@ -8,9 +8,6 @@
 #include "keylogger.c"
 #endif
 
-#ifdef TAP_DANCE_ENABLE
-#include "tap_dance.c"
-#endif
 
 #ifdef CAPS_WORD_ENABLE
 #include "caps_word.c"
